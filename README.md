@@ -1,3 +1,3 @@
-# gandalf-java-wargame
+# wargame
 
-## Bonjour
+## This is an gandalf-java-wargame
