@@ -11,5 +11,5 @@ package wargame;
  * @author Zirfly 2
  */
 public class PanneauJeu {
-    
+
 }

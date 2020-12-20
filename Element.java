@@ -10,7 +10,7 @@ package wargame;
  * @author Zirfly 2
  */
 public class Element {
-    
-    protected Position pos;
-    
+
+	protected Position pos;
+
 }
