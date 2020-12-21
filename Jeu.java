@@ -22,6 +22,8 @@ public class Jeu {
 		// adding the info string next to the button
 		JLabel info= new JLabel();
 		info.setText("Oui oui baguette");
+		info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		topbar.add(info,BorderLayout.CENTER);
 		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
