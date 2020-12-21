@@ -12,15 +12,16 @@ public class Jeu {
 		
 		// adding the top bar
 		JPanel topbar= new JPanel();
-		topbar.setPreferredSize(new Dimension(
-				IConfig.LARGEUR_CARTE*IConfig.NB_PIX_CASE,
-				64));
 		frame.getContentPane().add(topbar,BorderLayout.NORTH);
 		
 		// adding the end of turn button on the top bar
 		JButton b_fin= new JButton("Fin de tour");
-		b_fin.setPreferredSize(new Dimension(256,32));
-		topbar.add(b_fin);
+		b_fin.setPreferredSize(new Dimension(200,50));
+		topbar.add(b_fin,BorderLayout.CENTER);
+		
+		// adding the info string next to the button
+		JLabel info= new JLabel();
+		info.setText("Oui oui baguette");
 		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
@@ -31,13 +32,13 @@ public class Jeu {
 		frame.getContentPane().add(map);
 		
 		// adding the bottom info label
-		JLabel info= new JLabel();
-		info.setPreferredSize(new Dimension(
+		JLabel hover_info= new JLabel();
+		/*info.setPreferredSize(new Dimension(
 				IConfig.LARGEUR_CARTE*IConfig.NB_PIX_CASE,
-				32));
-		frame.getContentPane().add(info,BorderLayout.SOUTH);
-		info.setText("Hello world!");
-		info.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
+				32));*/
+		frame.getContentPane().add(hover_info,BorderLayout.SOUTH);
+		hover_info.setText("Hello world!");
+		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		
 		// setting the window and displaying it
 		frame.setLocation(200,200);
