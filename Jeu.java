@@ -17,6 +17,11 @@ public class Jeu {
 				64));
 		frame.getContentPane().add(topbar,BorderLayout.NORTH);
 		
+		// adding the end of turn button on the top bar
+		JButton b_fin= new JButton("Fin de tour");
+		b_fin.setPreferredSize(new Dimension(256,32));
+		topbar.add(b_fin);
+		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
 		map.setPreferredSize(new Dimension(
@@ -31,6 +36,8 @@ public class Jeu {
 				IConfig.LARGEUR_CARTE*IConfig.NB_PIX_CASE,
 				32));
 		frame.getContentPane().add(info,BorderLayout.SOUTH);
+		info.setText("Hello world!");
+		info.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
 		
 		// setting the window and displaying it
 		frame.setLocation(200,200);
