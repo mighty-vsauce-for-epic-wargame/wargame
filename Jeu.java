@@ -5,7 +5,8 @@ import javax.swing.*;
 
 public class Jeu {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		
 		// create the JFrame
 		JFrame frame= new JFrame("Mighty Loot for Epic Wargame");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,15 +22,15 @@ public class Jeu {
 		
 		// adding the info string next to the button
 		JLabel info= new JLabel();
-		info.setText("Oui oui baguette");
+		info.setText("Some very useful info");
 		info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		topbar.add(info,BorderLayout.CENTER);
 		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
 		map.setPreferredSize(new Dimension(
-				IConfig.LARGEUR_CARTE*IConfig.NB_PIX_CASE,
-				IConfig.HAUTEUR_CARTE*IConfig.NB_PIX_CASE));
+				(IConfig.LARGEUR_CARTE + 1 ) * IConfig.NB_PIX_CASE - 1,
+				(IConfig.HAUTEUR_CARTE + 1 ) * IConfig.NB_PIX_CASE - 1));
 		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
 		
@@ -44,7 +45,7 @@ public class Jeu {
 		
 		// setting the window and displaying it
 		frame.setLocation(200,200);
-		frame.getContentPane().setPreferredSize(new Dimension(600,400));
+		/*frame.getContentPane().setPreferredSize(new Dimension(600,400));*/
 		frame.pack();
 		frame.setVisible(true);
 	}
