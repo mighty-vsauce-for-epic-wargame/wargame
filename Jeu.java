@@ -17,7 +17,7 @@ public class Jeu {
 		
 		// adding the end of turn button on the top bar
 		JButton b_fin= new JButton("Fin de tour");
-		b_fin.setPreferredSize(new Dimension(200,50));
+		b_fin.setPreferredSize(new Dimension(128,32));
 		topbar.add(b_fin,BorderLayout.CENTER);
 		
 		// adding the info string next to the button
@@ -29,23 +29,20 @@ public class Jeu {
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
 		map.setPreferredSize(new Dimension(
-				(IConfig.LARGEUR_CARTE + 1 ) * IConfig.NB_PIX_CASE - 1,
-				(IConfig.HAUTEUR_CARTE + 1 ) * IConfig.NB_PIX_CASE - 1));
+				IConfig.LARGEUR_CARTE * IConfig.NB_PIX_CASE + 1,
+				IConfig.HAUTEUR_CARTE * IConfig.NB_PIX_CASE + 1));
 		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
 		
 		// adding the bottom info label
 		JLabel hover_info= new JLabel();
-		/*info.setPreferredSize(new Dimension(
-				IConfig.LARGEUR_CARTE*IConfig.NB_PIX_CASE,
-				32));*/
 		frame.getContentPane().add(hover_info,BorderLayout.SOUTH);
 		hover_info.setText("Hello world!");
 		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		
 		// setting the window and displaying it
-		frame.setLocation(200,200);
-		/*frame.getContentPane().setPreferredSize(new Dimension(600,400));*/
+		frame.setLocation(256,128);
+		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
 	}
