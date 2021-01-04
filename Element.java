@@ -1,7 +1,11 @@
 package wargame;
 
-public class Element {
+public abstract class Element {
 
 	protected Position pos;
+	
+	public Position getPos() {
+		return pos;
+	}
 
 }

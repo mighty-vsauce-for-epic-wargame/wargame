@@ -8,7 +8,7 @@ import wargame.Obstacle.TypeObstacle;
 public class Carte implements ICarte {
 
 	protected Element carte[][]= new Element[IConfig.LARGEUR_CARTE][IConfig.HAUTEUR_CARTE];
-	
+		
 	@Override
 	public Element getElement(Position pos) {
 		return carte[pos.getX()][pos.getY()];
@@ -75,7 +75,7 @@ public class Carte implements ICarte {
 						i * IConfig.HEX_SIZE + xOffset * ( i + 1 ),
 						j * ( IConfig.HEX_SIZE - 4 /*valeur corrective */ ) + yOffset * ( Math.floorMod(i,2) + j),
 						IConfig.HEX_SIZE);
-				g.setColor(IConfig.COULEUR_VIDE);
+				g.setColor(IConfig.COULEUR_VIDE); /* a modifier plus tard */
 				g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
 			}
 		}
