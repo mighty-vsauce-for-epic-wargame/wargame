@@ -28,9 +28,12 @@ public class Jeu {
 		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
+		int h= (int)Hexagon.calculH(IConfig.HEX_SIZE);
+		int r= (int)Hexagon.calculR(IConfig.HEX_SIZE);
+
 		map.setPreferredSize(new Dimension(
-				IConfig.LARGEUR_CARTE * IConfig.NB_PIX_CASE + 1,
-				IConfig.HAUTEUR_CARTE * IConfig.NB_PIX_CASE + 1));
+				IConfig.LARGEUR_CARTE * ( IConfig.HEX_SIZE + h ) + h + 1,
+				( 1 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
 		
@@ -42,7 +45,7 @@ public class Jeu {
 		
 		// setting the window and displaying it
 		frame.setLocation(256,128);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
 	}

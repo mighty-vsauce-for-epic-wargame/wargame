@@ -65,30 +65,32 @@ public class Carte implements ICarte {
 	@Override
 	public void toutDessiner(Graphics g) {
 		int i,j;
+		int points[][];
+		int xOffset= (int)Hexagon.calculH(IConfig.HEX_SIZE);
+		int yOffset= (int)Hexagon.calculR(IConfig.HEX_SIZE);
+	
+		for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+			for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+				points= Hexagon.calculPoints(
+						i * IConfig.HEX_SIZE + xOffset * ( i + 1 ),
+						j * ( IConfig.HEX_SIZE - 4 /*valeur corrective */ ) + yOffset * ( Math.floorMod(i,2) + j),
+						IConfig.HEX_SIZE);
+				g.setColor(IConfig.COULEUR_VIDE);
+				g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+			}
+		}
+		
 		g.setColor(Color.BLACK);
-		
-		/*carte[3][4]= Obstacle(Obstacle.TypeObstacle.getObstacleAlea(),new Position(3,4));*/
-		
-		for (i=0;i<IConfig.LARGEUR_CARTE;i++)
-			for (j=0;j<IConfig.HAUTEUR_CARTE;j++)
-				g.drawRect(
-						i*IConfig.NB_PIX_CASE,
-						j*IConfig.NB_PIX_CASE,
-						IConfig.NB_PIX_CASE,
-						IConfig.NB_PIX_CASE);
 		
 		for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
 			for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
-				if (carte[i][j]!=null) {
-					System.out.println(carte[i][j].getClass().getSimpleName());
-				}
-				g.setColor(Color.WHITE);
-				g.fillRect(
-						i * IConfig.NB_PIX_CASE + 1,
-						j * IConfig.NB_PIX_CASE + 1,
-						IConfig.NB_PIX_CASE - 1,
-						IConfig.NB_PIX_CASE - 1);
+				points= Hexagon.calculPoints(
+						i * IConfig.HEX_SIZE + xOffset * ( i + 1 ),
+						j * ( IConfig.HEX_SIZE - 4 /*valeur corrective */ ) + yOffset * ( Math.floorMod(i,2) + j),
+						IConfig.HEX_SIZE);
+				g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
 			}
 		}
+		
 	}
 }

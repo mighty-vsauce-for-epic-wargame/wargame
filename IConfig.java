@@ -3,9 +3,10 @@ package wargame;
 import java.awt.Color;
 
 public interface IConfig {
-	int LARGEUR_CARTE = 25;
-	int HAUTEUR_CARTE = 15;
+	int LARGEUR_CARTE = 20;
+	int HAUTEUR_CARTE = 10;
 	int NB_PIX_CASE = 20;
+	int HEX_SIZE= 25;
 	int POSITION_X = 100;
 	int POSITION_Y = 50;
 	int NB_HEROS = 6;
