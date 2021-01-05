@@ -2,31 +2,36 @@ package wargame;
 
 public interface ISoldat {
 	static enum TypesH {
-		HUMAIN(40, 3, 10, 2), NAIN(80, 1, 20, 0), ELF(70, 5, 10, 6), HOBBIT(20, 3, 5, 2);
+		HUMAN(110, 3, 20, 8, 100), DWARF(50, 2, 10, 0, 40), ELF(90, 4, 12, 15, 180), HOBBIT(30, 8, 5, 2, 70);
 
-		private final int POINTS_DE_VIE, PORTEE_VISUELLE, PUISSANCE, TIR;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE;
 
-		TypesH(int points, int portee, int puissance, int tir) {
-			POINTS_DE_VIE = points;
-			PORTEE_VISUELLE = portee;
-			PUISSANCE = puissance;
-			TIR = tir;
+		TypesH(int points, int portee, int puissance, int tir, int prix) {
+			HEALTH = points;
+			VISUAL_RANGE = portee;
+			DAMAGE = puissance;
+			LONG_RANGE = tir;
+			PRICE = prix;
 		}
 
-		public int getPoints() {
-			return POINTS_DE_VIE;
+		public int getHealth() {
+			return HEALTH;
 		}
 
-		public int getPortee() {
-			return PORTEE_VISUELLE;
+		public int getVisualRange() {
+			return VISUAL_RANGE;
 		}
 
-		public int getPuissance() {
-			return PUISSANCE;
+		public int getDamage() {
+			return DAMAGE;
 		}
 
-		public int getTir() {
-			return TIR;
+		public int getLongRange() {
+			return LONG_RANGE;
+		}
+		
+		public int getPrice() {
+			return PRICE;
 		}
 
 		public static TypesH getTypeHAlea() {
@@ -35,47 +40,70 @@ public interface ISoldat {
 	}
 
 	public static enum TypesM {
-		TROLL(100, 1, 30, 0), ORC(40, 2, 10, 3), GOBELIN(20, 2, 5, 2);
+		TROLL(170, 1, 30, 0, 250), ORC(100, 2, 25, 4, 100), GOBLIN(30, 8, 5, 2, 70);
 
-		private final int POINTS_DE_VIE, PORTEE_VISUELLE, PUISSANCE, TIR;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE;
 
-		TypesM(int points, int portee, int puissance, int tir) {
-			POINTS_DE_VIE = points;
-			PORTEE_VISUELLE = portee;
-			PUISSANCE = puissance;
-			TIR = tir;
+		TypesM(int points, int portee, int puissance, int tir, int prix) {
+			HEALTH = points;
+			VISUAL_RANGE = portee;
+			DAMAGE = puissance;
+			LONG_RANGE = tir;
+			PRICE = prix;
 		}
 
-		public int getPoints() {
-			return POINTS_DE_VIE;
+		public int getHealth() {
+			return HEALTH;
 		}
 
-		public int getPortee() {
-			return PORTEE_VISUELLE;
+		public int getVisualRange() {
+			return VISUAL_RANGE;
 		}
 
-		public int getPuissance() {
-			return PUISSANCE;
+		public int getDamage() {
+			return DAMAGE;
 		}
 
-		public int getTir() {
-			return TIR;
+		public int getLongRange() {
+			return LONG_RANGE;
+		}
+		
+		public int getPrice() {
+			return PRICE;
 		}
 
 		public static TypesM getTypeMAlea() {
 			return values()[(int) (Math.random() * values().length)];
 		}
 	}
+	
+	public Position getPosition();
+	
+	int getHealth();
+	
+	void setHealth(int l);
 
-	int getPoints();
-
+	/*a faire*/
 	int getTour();
 
-	int getPortee();
-
+	int getVisualRange();
+	
+	int getPrice();
+	
+	/*a faire*/
 	void joueTour(int tour);
 
-	void combat(Soldat soldat);
-
+	/**this function executes the attack of the character on soldat
+	 * 
+	 * @param soldier attacked soldier
+	 * @param attackType 1 for melee 2 for long range
+	 * @return 0 if attack executed, 0 if attack impossible
+	 */
+	int combat(Soldat soldier, int attackType);
+	
+	/**this function changes the position of the soldier to newPos
+	 * 
+	 * @param newPos
+	 */
 	void seDeplace(Position newPos);
 }
