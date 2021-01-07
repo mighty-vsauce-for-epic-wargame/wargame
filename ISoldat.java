@@ -1,17 +1,22 @@
 package wargame;
 
 public interface ISoldat {
+	
+	public final int NUM_HEROES = 4, NUM_MONSTERS = 3;
+	
+	
 	static enum TypesH {
-		HUMAN(110, 3, 20, 8, 100), DWARF(50, 2, 10, 0, 40), ELF(90, 4, 12, 15, 180), HOBBIT(30, 8, 5, 2, 70);
+		HUMAN(110, 3, 20, 8, 100, 4), DWARF(50, 2, 10, 0, 40, 3), ELF(90, 4, 12, 15, 180, 4), HOBBIT(30, 8, 5, 2, 70, 7);
 
-		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT;
 
-		TypesH(int points, int portee, int puissance, int tir, int prix) {
+		TypesH(int points, int portee, int puissance, int tir, int prix, int movement) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
 			DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
+			MOVEMENT = movement;
 		}
 
 		public int getHealth() {
@@ -33,23 +38,28 @@ public interface ISoldat {
 		public int getPrice() {
 			return PRICE;
 		}
-
+		
+		public int getMovement() {
+			return MOVEMENT;
+		}
+		
 		public static TypesH getTypeHAlea() {
 			return values()[(int) (Math.random() * values().length)];
 		}
 	}
 
 	public static enum TypesM {
-		TROLL(170, 1, 30, 0, 250), ORC(100, 2, 25, 4, 100), GOBLIN(30, 8, 5, 2, 70);
+		TROLL(170, 1, 30, 0, 250, 3), ORC(100, 2, 25, 4, 100, 4), GOBLIN(30, 8, 5, 2, 70, 7);
 
-		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT;
 
-		TypesM(int points, int portee, int puissance, int tir, int prix) {
+		TypesM(int points, int portee, int puissance, int tir, int prix, int movement) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
 			DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
+			MOVEMENT = movement;
 		}
 
 		public int getHealth() {
@@ -70,6 +80,10 @@ public interface ISoldat {
 		
 		public int getPrice() {
 			return PRICE;
+		}
+		
+		public int getMovement() {
+			return MOVEMENT;
 		}
 
 		public static TypesM getTypeMAlea() {
