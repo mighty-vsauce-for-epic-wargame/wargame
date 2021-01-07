@@ -16,9 +16,9 @@ public interface IConfig {
     Color COULEUR_TEXTE = Color.black, COULEUR_MONSTRES = Color.black;
     Color COULEUR_HEROS = Color.red, COULEUR_HEROS_DEJA_JOUE = Color.pink;
 
-    String SPRITE_LAC = "resources/LAC_50.png";
-    String SPRITE_FORET = "resources/FORET_50.png";
-    String SPRITE_MONTAGNE = "resources/MONTAGNE_50.png";
-    String SPRITE_PLAINE = "resources/PLAINE_50.png";
-    String SPRITE_VILLAGE = "resources/VILLAGE_50.png";
+    String SPRITE_LAC = "resources/LAC.png";
+    String SPRITE_FORET = "resources/FORET.png";
+    String SPRITE_MONTAGNE = "resources/MONTAGNE.png";
+    String SPRITE_PLAINE = "resources/PLAINE.png";
+    String SPRITE_VILLAGE = "resources/VILLAGE.png";
 }

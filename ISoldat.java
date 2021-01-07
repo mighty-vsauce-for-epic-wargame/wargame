@@ -13,7 +13,7 @@ public interface ISoldat {
 		TypesH(int points, int portee, int puissance, int tir, int prix, int movement) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
-			DAMAGE = puissance;
+                        DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
 			MOVEMENT = movement;
