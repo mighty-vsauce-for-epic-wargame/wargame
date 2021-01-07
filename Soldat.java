@@ -1,6 +1,5 @@
 package wargame;
 
-
 public class Soldat extends Position implements ISoldat{
 	
 	Position posSoldat;
