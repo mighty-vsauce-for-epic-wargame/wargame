@@ -2,6 +2,8 @@ package wargame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 public class Carte implements ICarte
 {
@@ -94,14 +96,15 @@ public class Carte implements ICarte
                     j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
                             yOffset * (Math.floorMod(i, 2) + j),
                     IConfig.HEX_SIZE);
-                
+                Polygon hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+                ((Graphics2D) g).setClip(hex); // pour que l'image se dessine uniquement dans l'hexagone
                 g.drawImage(
                         carte[i][j].getTerrainSprite(),
                         i * IConfig.HEX_SIZE + xOffset * i,
                         j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j),
                         null);
                 //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
-                
+                ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
                 g.setColor(Color.BLACK);
                 g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
             }
