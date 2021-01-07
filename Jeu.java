@@ -45,7 +45,7 @@ public class Jeu {
 		
 		// setting the window and displaying it
 		frame.setLocation(256,128);
-		//frame.setResizable(false);
+		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
 	}
