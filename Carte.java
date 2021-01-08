@@ -14,6 +14,8 @@ public class Carte implements ICarte
     private final Soldat unites[][];
     private final int VALEUR_CORRECTIVE = 4;
     
+    
+    
     public Carte()
     {
         carte  = new Element[IConfig.LARGEUR_CARTE][IConfig.HAUTEUR_CARTE];
