@@ -152,6 +152,7 @@ public class Carte implements ICarte
     		Soldat.NB_MONSTRES--;
     	}
         unites[perso.getPosition().getX()][perso.getPosition().getY()] = null;
+        Jeu.update_info_string();
     }
 
     @Override
