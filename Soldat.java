@@ -9,7 +9,7 @@ public class Soldat extends Position implements ISoldat{
 	
 	Position posSoldat;
 	
-	private int health, visualRange, damage, longRange, price, soldierType, movement, defence;
+	private int health, visualRange, damage, longRange, price, movement, defence, soldierType;
 	private boolean isHero;
 	private BufferedImage sprite;
 	
@@ -22,22 +22,22 @@ public class Soldat extends Position implements ISoldat{
 		
 		if(isHero) {
 			NB_HEROS++;
-			health = TypesH.values()[soldierType].getHealth();
-			visualRange = TypesH.values()[soldierType].getVisualRange();
-			damage = TypesH.values()[soldierType].getDamage();
-			longRange = TypesH.values()[soldierType].getLongRange();
-			price = TypesH.values()[soldierType].getPrice();
-			movement = TypesH.values()[soldierType].getMovement();
-			defence = TypesH.values()[soldierType].getDefence();
+			health = TypesS.values()[soldierType].getHealth();
+			visualRange = TypesS.values()[soldierType].getVisualRange();
+			damage = TypesS.values()[soldierType].getDamage();
+			longRange = TypesS.values()[soldierType].getLongRange();
+			price = TypesS.values()[soldierType].getPrice();
+			movement = TypesS.values()[soldierType].getMovement();
+			defence = TypesS.values()[soldierType].getDefence();
 		}else {
 			NB_MONSTRES++;
-			health = TypesM.values()[soldierType].getHealth();
-			visualRange = TypesM.values()[soldierType].getVisualRange();
-			damage = TypesM.values()[soldierType].getDamage();
-			longRange = TypesM.values()[soldierType].getLongRange();
-			price = TypesM.values()[soldierType].getPrice();
-			movement = TypesM.values()[soldierType].getMovement();
-			defence = TypesM.values()[soldierType].getDefence();
+			health = TypesS.values()[soldierType].getHealth();
+			visualRange = TypesS.values()[soldierType].getVisualRange();
+			damage = TypesS.values()[soldierType].getDamage();
+			longRange = TypesS.values()[soldierType].getLongRange();
+			price = TypesS.values()[soldierType].getPrice();
+			movement = TypesS.values()[soldierType].getMovement();
+			defence = TypesS.values()[soldierType].getDefence();
 		}
 
 		this.isHero = isHero;
