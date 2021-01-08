@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.Random;
+import wargame.Element.TypeTerrain;
 
 public class Carte implements ICarte
 {
@@ -32,23 +33,48 @@ public class Carte implements ICarte
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
                 carte[i][j] = new Element();
-                unites[i][j] = genererUniteAleatoire(i, j);
+                
+                if (peutSpawner(carte[i][j]))
+                {                
+                    if (i < (IConfig.LARGEUR_CARTE / 2))
+                        unites[i][j] = genererUniteAleatoire(i, j, false);
+                    else
+                        unites[i][j] = genererUniteAleatoire(i, j, true);
+                }
             }
         }
     }
     
-    private Soldat genererUniteAleatoire(int x, int y)
+    private boolean peutSpawner(Element elem)
     {
-        if (new Random().nextBoolean())
+        TypeTerrain typeTerrain = elem.getTypeTerrain();
+        
+        return  (typeTerrain != TypeTerrain.LAC) &&
+                (typeTerrain != TypeTerrain.MONTAGNE);
+    }
+    
+    private boolean spawnChanceUnTiers()
+    {
+        return new Random().nextInt(9) < 3;
+    }
+    
+    private Soldat genererUniteAleatoire(int x, int y, boolean heros)
+    {
+        if (spawnChanceUnTiers())
         {
-            return new Soldat(
+            if (heros)
+            {
+                return new Soldat(
                     true, new Random().nextInt(ISoldat.NUM_HEROES), x, y);
-        }
-        else
-        {
-            return new Soldat(
+            }
+            else
+            {
+                return new Soldat(
                     false, new Random().nextInt(ISoldat.NUM_MONSTERS), x, y);
+            }
         }
+        
+        return null;
     }
 
     @Override
@@ -82,17 +108,17 @@ public class Carte implements ICarte
     }
 
     @Override
-    public Heros trouverHeros()
+    public Soldat trouverHeros()
     {
         int i, j;
-        ArrayList<Heros> heroes = new ArrayList<>();
+        ArrayList<Soldat> heroes = new ArrayList<>();
         
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
                 if (unites[i][j].getisHero())
-                    heroes.add((Heros) unites[i][j]);
+                    heroes.add(unites[i][j]);
             }
         }
         
@@ -100,7 +126,7 @@ public class Carte implements ICarte
     }
 
     @Override
-    public Heros trouverHeros(Position pos)
+    public Soldat trouverHeros(Position pos)
     {
         return null;
     }
@@ -109,7 +135,7 @@ public class Carte implements ICarte
     public boolean deplacerSoldat(Position pos, Soldat soldat)
     {
         unites[pos.getX()][pos.getY()] =
-                unites[soldat.getPosition().getX()][soldat.getPosition().getY()];
+            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];
         unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
         
         return true;
