@@ -1,5 +1,6 @@
 package wargame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -139,11 +140,11 @@ public class Carte implements ICarte
 		int xOffset= (int)Hexagon.calculH(IConfig.HEX_SIZE);
 		int yOffset= (int)Hexagon.calculR(IConfig.HEX_SIZE);
 		
+		/* draw the hexes and the map */
 		for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-            	/*draw the map */
                 points = Hexagon.calculPoints(
                     i * IConfig.HEX_SIZE + xOffset * (i + 1),
                     j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
@@ -153,6 +154,7 @@ public class Carte implements ICarte
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
                 ((Graphics2D) g).setClip(hex); // pour que l'image se dessine uniquement dans l'hexagone
                 
+                /* draw the map */
                 g.drawImage(
                         carte[i][j].getTerrainSprite(),
                         i * IConfig.HEX_SIZE + xOffset * i,
@@ -161,10 +163,30 @@ public class Carte implements ICarte
                 //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
                 
-                g.setColor(Color.BLACK);
+                /* draw the hexes */
+                g.setColor(new Color(100,150,100));
                 g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
-                
-                /* draw the troops */
+            }
+        }
+		
+		/* draw the active hex and the troops */
+        for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+        	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+        		
+        		points = Hexagon.calculPoints(
+                        i * IConfig.HEX_SIZE + xOffset * (i + 1),
+                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+                                yOffset * (Math.floorMod(i, 2) + j + 1),
+                        IConfig.HEX_SIZE);
+                hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+        		if (hex.contains(70,70)) { // change to mouse coordinates
+                	g.setColor(Color.RED);
+                	((Graphics2D)g).setStroke(new BasicStroke(2.0f));
+                	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));
+                }
+        		
+        		/* draw the troops */
                 unit= unites[i][j];
                 if (unit!=null) {
                 	g.drawImage(
@@ -175,7 +197,9 @@ public class Carte implements ICarte
                             - IConfig.HEX_SIZE/4,
                             null);
                 }
-            }
+                
+        	}
         }
+        
     }
 }

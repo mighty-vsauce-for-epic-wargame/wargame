@@ -1,6 +1,10 @@
 package wargame;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.*;
 
 public class Jeu {
@@ -36,6 +40,23 @@ public class Jeu {
 				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
+		map.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				// TODO Auto-generated method stub
+				int xPos= e.getX();
+			    int yPos= e.getY();
+			    System.out.println("mouse coords : ("+xPos+","+yPos+")");
+			}
+		    
+		});
 		
 		// adding the bottom info label
 		JLabel hover_info= new JLabel();
