@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,10 +17,9 @@ import wargame.Element.TypeTerrain;
 
 public class Carte implements ICarte
 {
-    private final Element carte[][];
-    private final Soldat unites[][];
+    private Element carte[][];
+    private Soldat unites[][];
     private final int VALEUR_CORRECTIVE = 4;
-    private TypeTerrain biomeTypeTerrain = null;
     
     public int mouse_x, mouse_y;    
     
@@ -48,27 +52,6 @@ public class Carte implements ICarte
         }
     }
     
-    /*private TypeTerrain getRandomTerrainType()
-    {        
-        if (biomeTypeTerrain != null)
-        {
-            if (!unCinq())
-                return biomeTypeTerrain;
-            else
-            {
-                return biomeTypeTerrain =
-                    TypeTerrain.values()[
-                    new Random().nextInt(TypeTerrain.values().length)];
-            }
-        }
-        else
-        {
-            return biomeTypeTerrain =
-                TypeTerrain.values()[
-                new Random().nextInt(TypeTerrain.values().length)];
-        }
-    }*/
-    
     private boolean peutSpawner(Element elem)
     {
         TypeTerrain typeTerrain = elem.getTypeTerrain();
@@ -87,18 +70,50 @@ public class Carte implements ICarte
         if (spawnChanceUnTiers())
         {
             if (heros)
-            {
-                return new Soldat(
-                    true, new Random().nextInt(ISoldat.NUM_HEROES), x, y);
-            }
+                return new Soldat(true, getRandomHeros(), x, y);
             else
-            {
-                return new Soldat(
-                    false, new Random().nextInt(ISoldat.NUM_MONSTERS), x, y);
-            }
+                return new Soldat(false, getRandomMonstre(), x, y);
         }
         
         return null;
+    }
+    
+    /* Chances de spawn
+        Human : 20%
+        Elf : 20%
+        Dwarf : 30%
+        Hobbit : 30% */
+    private int getRandomHeros()
+    {
+        int pourcentage = new Random().nextInt(100);
+        
+        if (pourcentage >= 0 && pourcentage < 20)
+            return 0;
+        else if  (pourcentage >= 20 && pourcentage < 40)
+            return 2;
+        else if  (pourcentage >= 40 && pourcentage < 70)
+            return 1;
+        else
+            return 3;
+    }
+    
+    /* Chances de spawn
+        Nazgul : 10%
+        Troll : 20%
+        Orc : 30%
+        Goblin : 40% */
+    private int getRandomMonstre()
+    {
+        int pourcentage = new Random().nextInt(100);
+        
+        if (pourcentage < -10)
+            return 0;
+        else if  (pourcentage < 30)
+            return 0;
+        else if  (pourcentage < 60)
+            return 0;
+        else
+            return 0;
     }
 
     @Override
@@ -186,6 +201,50 @@ public class Carte implements ICarte
     public void jouerSoldats(PanneauJeu pj)
     {
         
+    }
+    
+    public void sauvegarder()
+    {
+        ObjectOutputStream output;
+        FileOutputStream fichierSauvegarde;
+        SaveObject save;
+
+        try
+        {
+            fichierSauvegarde = new FileOutputStream("sauvegarde.ser");
+            output = new ObjectOutputStream(fichierSauvegarde);
+            
+            save = new SaveObject(carte, unites);
+            output.writeObject(save);
+            
+            output.flush();
+            output.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public void charger()
+    {
+        ObjectInputStream input;
+        FileInputStream fichierInput;
+        SaveObject save;
+
+        try
+        {
+            fichierInput = new FileInputStream("sauvegarde.ser");
+            input = new ObjectInputStream(fichierInput);
+            
+            save = (SaveObject) input.readObject();
+            carte = save.getCarte();
+            unites = save.getUnites();
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 	@Override
