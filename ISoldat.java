@@ -17,17 +17,19 @@ public interface ISoldat {
 	
 	
 	static enum TypesH {
-		HUMAN(110, 3, 20, 8, 100, 4), DWARF(50, 2, 10, 0, 40, 3), ELF(90, 4, 12, 15, 180, 4), HOBBIT(30, 8, 5, 2, 70, 7);
+		HUMAN(110, 3, 20, 8, 100, 4, 0), DWARF(50, 2, 10, 0, 40, 3, 0), ELF(90, 4, 12, 15, 180, 4, 0), 
+		HOBBIT(30, 8, 5, 2, 70, 7, 0);
 
-		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
 
-		TypesH(int points, int portee, int puissance, int tir, int prix, int movement) {
+		TypesH(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
             DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
 			MOVEMENT = movement;
+			DEFENCE = defence;
 		}
 
 		public int getHealth() {
@@ -52,6 +54,10 @@ public interface ISoldat {
 		
 		public int getMovement() {
 			return MOVEMENT;
+		}
+		
+		public int getDefence() {
+			return DEFENCE;
 		}
 		
 		public static TypesH getTypeHAlea() {
@@ -60,17 +66,19 @@ public interface ISoldat {
 	}
 
 	public static enum TypesM {
-		TROLL(170, 1, 30, 0, 250, 3), ORC(100, 2, 25, 4, 100, 4), GOBLIN(30, 8, 5, 2, 70, 7), NAZGUL(200,1,50,0,500,2);
+		TROLL(170, 1, 30, 0, 250, 3, 0), ORC(100, 2, 25, 4, 100, 4, 0), GOBLIN(30, 8, 5, 2, 70, 7, 0),
+		NAZGUL(200, 1, 50, 0, 500, 2, 0);
 
-		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT;
+		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
 
-		TypesM(int points, int portee, int puissance, int tir, int prix, int movement) {
+		TypesM(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
 			DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
 			MOVEMENT = movement;
+			DEFENCE = defence;
 		}
 
 		public int getHealth() {
@@ -95,6 +103,10 @@ public interface ISoldat {
 		
 		public int getMovement() {
 			return MOVEMENT;
+		}
+		
+		public int getDefence() {
+			return DEFENCE;
 		}
 
 		public static TypesM getTypeMAlea() {

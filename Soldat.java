@@ -2,34 +2,42 @@ package wargame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class Soldat extends Position implements ISoldat{
 	
 	Position posSoldat;
 	
-	private int health, visualRange, damage, longRange, price, soldierType, movement;
+	private int health, visualRange, damage, longRange, price, soldierType, movement, defence;
 	private boolean isHero;
 	private BufferedImage sprite;
+	
+	public static int NB_MONSTRES= 0;
+	public static int NB_HEROS= 0;
 	
 	public Soldat(boolean isHero, int soldierType, int posX, int posY) {
 		super(posX, posY);
 		posSoldat = new Position(posX, posY);
 		
 		if(isHero) {
+			NB_HEROS++;
 			health = TypesH.values()[soldierType].getHealth();
 			visualRange = TypesH.values()[soldierType].getVisualRange();
 			damage = TypesH.values()[soldierType].getDamage();
 			longRange = TypesH.values()[soldierType].getLongRange();
 			price = TypesH.values()[soldierType].getPrice();
 			movement = TypesH.values()[soldierType].getMovement();
+			defence = TypesH.values()[soldierType].getDefence();
 		}else {
+			NB_MONSTRES++;
 			health = TypesM.values()[soldierType].getHealth();
 			visualRange = TypesM.values()[soldierType].getVisualRange();
 			damage = TypesM.values()[soldierType].getDamage();
 			longRange = TypesM.values()[soldierType].getLongRange();
 			price = TypesM.values()[soldierType].getPrice();
 			movement = TypesM.values()[soldierType].getMovement();
+			defence = TypesM.values()[soldierType].getDefence();
 		}
 
 		this.isHero = isHero;
@@ -87,6 +95,10 @@ public class Soldat extends Position implements ISoldat{
 		return movement;
 	}
 	
+	public int getDefence() {
+		return defence;
+	}
+	
 	//a changer
 	public int distance(Position p) {
 		return 0;
@@ -95,12 +107,12 @@ public class Soldat extends Position implements ISoldat{
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {
 			//the attack is a melee attack
-			soldier.setHealth(soldier.getHealth() - this.damage);
+			soldier.setHealth(soldier.getHealth() - this.damage + soldier.getDefence());
 			return 0;
 		}else {
 			//it's a long range attack
 			if(distance(soldier.getPosition()) < this.visualRange) {
-				soldier.setHealth(soldier.getHealth() - this.longRange);
+				soldier.setHealth(soldier.getHealth() - this.longRange + soldier.getDefence());
 				return 0;
 			}
 			return -1;
@@ -166,7 +178,5 @@ public class Soldat extends Position implements ISoldat{
 	            break;
 			}
 		}
-        
     }
-	
 }
