@@ -12,11 +12,15 @@ public class Soldat extends Position implements ISoldat{
 	private boolean isHero;
 	private BufferedImage sprite;
 	
+	public static int NB_MONSTRES= 0;
+	public static int NB_HEROS= 0;
+	
 	public Soldat(boolean isHero, int soldierType, int posX, int posY) {
 		super(posX, posY);
 		posSoldat = new Position(posX, posY);
 		
 		if(isHero) {
+			NB_HEROS++;
 			health = TypesH.values()[soldierType].getHealth();
 			visualRange = TypesH.values()[soldierType].getVisualRange();
 			damage = TypesH.values()[soldierType].getDamage();
@@ -24,6 +28,7 @@ public class Soldat extends Position implements ISoldat{
 			price = TypesH.values()[soldierType].getPrice();
 			movement = TypesH.values()[soldierType].getMovement();
 		}else {
+			NB_MONSTRES++;
 			health = TypesM.values()[soldierType].getHealth();
 			visualRange = TypesM.values()[soldierType].getVisualRange();
 			damage = TypesM.values()[soldierType].getDamage();

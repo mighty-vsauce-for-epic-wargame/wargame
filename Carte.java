@@ -145,6 +145,11 @@ public class Carte implements ICarte
     @Override
     public void mort(Soldat perso)
     {
+    	if (perso.getisHero()) {
+    		Soldat.NB_HEROS--;
+    	} else {
+    		Soldat.NB_MONSTRES--;
+    	}
         unites[perso.getPosition().getX()][perso.getPosition().getY()] = null;
     }
 

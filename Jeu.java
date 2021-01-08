@@ -25,7 +25,7 @@ public class Jeu {
 		
 		// adding the info string next to the button
 		JLabel info= new JLabel();
-		info.setText("Some very useful info");
+		info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
 		info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		topbar.add(info,BorderLayout.CENTER);
 		
