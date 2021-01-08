@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 public class Jeu {
-
+	
 	public static void main(String[] args) {		
 		
 		// create the JFrame
@@ -68,5 +68,4 @@ public class Jeu {
 		frame.pack();
 		frame.setVisible(true);
 	}
-
 }
