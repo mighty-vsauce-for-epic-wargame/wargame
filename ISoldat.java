@@ -2,7 +2,7 @@ package wargame;
 
 public interface ISoldat {
 	
-	public final int NUM_HEROES = 4, NUM_MONSTERS = 3;
+	public final int NUM_HEROES = 4, NUM_MONSTERS = 4;
 	
 	
 	static enum TypesH {
@@ -49,7 +49,7 @@ public interface ISoldat {
 	}
 
 	public static enum TypesM {
-		TROLL(170, 1, 30, 0, 250, 3), ORC(100, 2, 25, 4, 100, 4), GOBLIN(30, 8, 5, 2, 70, 7);
+		TROLL(170, 1, 30, 0, 250, 3), ORC(100, 2, 25, 4, 100, 4), GOBLIN(30, 8, 5, 2, 70, 7), NAZGUL(200,1,50,0,500,2);
 
 		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT;
 
