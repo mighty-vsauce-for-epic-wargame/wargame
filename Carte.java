@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import wargame.Element.TypeTerrain;
+import wargame.ISoldat.TypesS;
 
 public class Carte implements ICarte
 {
@@ -83,18 +84,18 @@ public class Carte implements ICarte
         Elf : 20%
         Dwarf : 30%
         Hobbit : 30% */
-    private int getRandomHeros()
+    private TypesS getRandomHeros()
     {
         int pourcentage = new Random().nextInt(100);
         
         if (pourcentage >= 0 && pourcentage < 20)
-            return 0;
+            return TypesS.HUMAN;
         else if  (pourcentage >= 20 && pourcentage < 40)
-            return 2;
+            return TypesS.ELF;
         else if  (pourcentage >= 40 && pourcentage < 70)
-            return 1;
+            return TypesS.DWARF;
         else
-            return 3;
+            return TypesS.HOBBIT;
     }
     
     /* Chances de spawn
@@ -102,18 +103,18 @@ public class Carte implements ICarte
         Troll : 20%
         Orc : 30%
         Goblin : 40% */
-    private int getRandomMonstre()
+    private TypesS getRandomMonstre()
     {
         int pourcentage = new Random().nextInt(100);
         
-        if (pourcentage < -10)
-            return 0;
-        else if  (pourcentage < 30)
-            return 0;
-        else if  (pourcentage < 60)
-            return 0;
+        if (pourcentage >= 0 && pourcentage < 10)
+            return TypesS.NAZGUL;
+        else if  (pourcentage >= 10 && pourcentage < 30)
+            return TypesS.TROLL;
+        else if  (pourcentage >= 30 && pourcentage < 60)
+            return TypesS.ORC;
         else
-            return 0;
+            return TypesS.GOBLIN;
     }
 
     @Override
