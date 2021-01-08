@@ -1,11 +1,16 @@
 package wargame;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class Soldat extends Position implements ISoldat{
 	
 	Position posSoldat;
 	
 	private int health, visualRange, damage, longRange, price, soldierType, movement;
 	private boolean isHero;
+	private BufferedImage sprite;
 	
 	public Soldat(boolean isHero, int soldierType, int posX, int posY) {
 		super(posX, posY);
@@ -30,6 +35,14 @@ public class Soldat extends Position implements ISoldat{
 		this.isHero = isHero;
 		this.soldierType = soldierType;
 		
+		try
+        {
+            setSprite();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 	}
 	
 	
@@ -98,5 +111,62 @@ public class Soldat extends Position implements ISoldat{
 	public void seDeplace(Position newPos) {
 		this.posSoldat = newPos;
 	}
+	
+	public BufferedImage getSprite() {
+		return sprite;
+	}
+	
+	private void setSprite() throws IOException
+    {
+		if (getisHero()) {
+			switch (soldierType)
+	        {
+	            case HUMAN:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_HUMAN));
+	            break;
+	            
+	            case ELF:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_ELF));
+	            break;
+	            
+	            case DWARF:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_DWARF));
+	            break;
+	            
+	            case HOBBIT:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_HOBBIT));
+	            break;
+	            
+	            
+	        }
+		} else {
+			switch (soldierType) {
+				case TROLL:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_TROLL));
+	            break;
+	            
+	            case ORC:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_ORC));
+	            break;
+	            
+	            case GOBLIN:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_GOBLIN));
+	            break;
+	            
+	            case NAZGUL:
+	                sprite = ImageIO.read(
+	                        getClass().getResource(ISoldat.SPRITE_NAZGUL));
+	            break;
+			}
+		}
+        
+    }
 	
 }

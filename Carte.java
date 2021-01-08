@@ -134,6 +134,8 @@ public class Carte implements ICarte
 	public void toutDessiner(Graphics g) {
 		int i,j;
 		int points[][];
+		Polygon hex; //used for clipping the image of the hex into the hex
+		Soldat unit; //used for the display of units
 		int xOffset= (int)Hexagon.calculH(IConfig.HEX_SIZE);
 		int yOffset= (int)Hexagon.calculR(IConfig.HEX_SIZE);
 	
@@ -141,13 +143,14 @@ public class Carte implements ICarte
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
+            	/*draw the map */
                 points = Hexagon.calculPoints(
                     i * IConfig.HEX_SIZE + xOffset * (i + 1),
                     j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
                             yOffset * (Math.floorMod(i, 2) + j),
                     IConfig.HEX_SIZE);
                 
-                Polygon hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+                hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
                 ((Graphics2D) g).setClip(hex); // pour que l'image se dessine uniquement dans l'hexagone
                 
                 g.drawImage(
@@ -159,6 +162,16 @@ public class Carte implements ICarte
                 ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
                 g.setColor(Color.BLACK);
                 g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+                
+                /* draw the troops */
+                unit= unites[i][j];
+                if (unit!=null) {
+                	g.drawImage(
+                			unit.getSprite(),
+                			i * IConfig.HEX_SIZE + xOffset * i + IConfig.HEX_SIZE*3/4,
+                            j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j) - IConfig.HEX_SIZE/4,
+                            null);
+                }
             }
         }
     }

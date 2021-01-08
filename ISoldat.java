@@ -3,6 +3,17 @@ package wargame;
 public interface ISoldat {
 	
 	public final int NUM_HEROES = 4, NUM_MONSTERS = 4;
+	public final int HUMAN= 0, DWARF= 1, ELF= 2, HOBBIT= 3;
+	public final int TROLL= 0, ORC= 1, GOBLIN= 2, NAZGUL= 3;
+	
+	String SPRITE_HUMAN= "resources/hobbit.png";
+	String SPRITE_DWARF= "resources/nain.png";
+	String SPRITE_ELF= "resources/elfe.png";
+	String SPRITE_HOBBIT= "resources/hobbit.png";
+	String SPRITE_ORC= "resources/orque.png";
+	String SPRITE_TROLL= "resources/nazgul.png";
+	String SPRITE_GOBLIN= "resources/gobelin.png";
+	String SPRITE_NAZGUL= "resources/nazgul.png";
 	
 	
 	static enum TypesH {
@@ -13,7 +24,7 @@ public interface ISoldat {
 		TypesH(int points, int portee, int puissance, int tir, int prix, int movement) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
-                        DAMAGE = puissance;
+            DAMAGE = puissance;
 			LONG_RANGE = tir;
 			PRICE = prix;
 			MOVEMENT = movement;
