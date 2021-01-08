@@ -33,7 +33,7 @@ public class Jeu {
 
 		map.setPreferredSize(new Dimension(
 				IConfig.LARGEUR_CARTE * ( IConfig.HEX_SIZE + h ) + h + 1,
-				( 1 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
+				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
 		

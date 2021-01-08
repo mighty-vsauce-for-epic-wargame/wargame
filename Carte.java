@@ -138,8 +138,8 @@ public class Carte implements ICarte
 		Soldat unit; //used for the display of units
 		int xOffset= (int)Hexagon.calculH(IConfig.HEX_SIZE);
 		int yOffset= (int)Hexagon.calculR(IConfig.HEX_SIZE);
-	
-        for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
+		
+		for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
@@ -147,7 +147,7 @@ public class Carte implements ICarte
                 points = Hexagon.calculPoints(
                     i * IConfig.HEX_SIZE + xOffset * (i + 1),
                     j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
-                            yOffset * (Math.floorMod(i, 2) + j),
+                            yOffset * (Math.floorMod(i, 2) + j + 1),
                     IConfig.HEX_SIZE);
                 
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
@@ -156,10 +156,11 @@ public class Carte implements ICarte
                 g.drawImage(
                         carte[i][j].getTerrainSprite(),
                         i * IConfig.HEX_SIZE + xOffset * i,
-                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j),
+                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j + 1),
                         null);
                 //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
+                
                 g.setColor(Color.BLACK);
                 g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 
@@ -169,7 +170,9 @@ public class Carte implements ICarte
                 	g.drawImage(
                 			unit.getSprite(),
                 			i * IConfig.HEX_SIZE + xOffset * i + IConfig.HEX_SIZE*3/4,
-                            j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j) - IConfig.HEX_SIZE/4,
+                            j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE)
+                            + yOffset * (Math.floorMod(i, 2) + j + 1)
+                            - IConfig.HEX_SIZE/4,
                             null);
                 }
             }
