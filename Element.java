@@ -26,10 +26,13 @@ public class Element
     
     private TypeTerrain typeTerrain;
     private BufferedImage sprite;
+    private BufferedImage spriteBrouillard;
+    private boolean visible;
     
     public Element()
     {
         setRandomTerrainType();
+        visible = true;
         
         try
         {
@@ -76,11 +79,17 @@ public class Element
                         getClass().getResource(IConfig.SPRITE_VILLAGE));
             break;
         }
+        
+        spriteBrouillard = ImageIO.read(
+                        getClass().getResource(IConfig.SPRITE_BROUILLARD));
     }
     
     public BufferedImage getTerrainSprite()
     {
-        return sprite;
+        if (visible)
+            return sprite;
+        else
+            return spriteBrouillard;
     }
     
     public int getDegatModif()
@@ -91,5 +100,15 @@ public class Element
     public TypeTerrain getTypeTerrain()
     {
         return typeTerrain;
+    }
+    
+    public boolean estVisible()
+    {
+        return visible;
+    }
+    
+    public void setVisible(boolean visible)
+    {
+        this.visible = visible;
     }
 }

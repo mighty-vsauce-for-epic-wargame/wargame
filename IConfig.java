@@ -3,6 +3,7 @@ package wargame;
 import java.awt.Color;
 
 public interface IConfig {
+
     int LARGEUR_CARTE = 20;
     int HAUTEUR_CARTE = 10;
     int NB_PIX_CASE = 20;
@@ -21,4 +22,5 @@ public interface IConfig {
     String SPRITE_MONTAGNE = "resources/MONTAGNE.png";
     String SPRITE_PLAINE = "resources/PLAINE.png";
     String SPRITE_VILLAGE = "resources/VILLAGE.png";
+    String SPRITE_BROUILLARD = "resources/BROUILLARD.png";
 }
