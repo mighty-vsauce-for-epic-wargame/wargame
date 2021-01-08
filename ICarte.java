@@ -7,8 +7,8 @@ public interface ICarte
     Element getElement(Position pos);
     Position trouverPositionVide();
     Position trouverPositionVide(Position pos);
-    Heros trouverHeros();
-    Heros trouverHeros(Position pos);
+    Soldat trouverHeros();
+    Soldat trouverHeros(Position pos);
     boolean deplacerSoldat(Position pos, Soldat soldat);
     void mort(Soldat perso);
     boolean actionHeros(Position pos, Position pos2);

@@ -7,7 +7,22 @@ import javax.imageio.ImageIO;
 
 public class Element
 {
-    public enum TypeTerrain { LAC, FORET, MONTAGNE, PLAINE, VILLAGE };
+    public enum TypeTerrain
+    {
+        LAC(0), FORET(-2), MONTAGNE(2), PLAINE(0), VILLAGE(-3);
+        
+        private final int degatModif;
+        
+        private TypeTerrain(int degatModif)
+        {
+            this.degatModif = degatModif;
+        }
+        
+        private int getDegatModif()
+        {
+            return this.degatModif;
+        }
+    };
     
     private TypeTerrain typeTerrain;
     private BufferedImage sprite;
@@ -15,20 +30,6 @@ public class Element
     public Element()
     {
         setRandomTerrainType();
-        
-        try
-        {
-            setSprite();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-    
-    public Element(TypeTerrain typeTerrain)
-    {
-        this.typeTerrain = typeTerrain;
         
         try
         {
@@ -80,5 +81,15 @@ public class Element
     public BufferedImage getTerrainSprite()
     {
         return sprite;
+    }
+    
+    public int getDegatModif()
+    {
+        return typeTerrain.getDegatModif();
+    }
+    
+    public TypeTerrain getTypeTerrain()
+    {
+        return typeTerrain;
     }
 }
