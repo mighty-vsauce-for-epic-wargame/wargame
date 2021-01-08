@@ -9,13 +9,24 @@ public class Element
 {
     public enum TypeTerrain
     {
-        LAC(0), FORET(-2), MONTAGNE(2), PLAINE(0), VILLAGE(-3);
+        LAC(IConfig.SPRITE_LAC, 0),
+        FORET(IConfig.SPRITE_FORET, -2),
+        MONTAGNE(IConfig.SPRITE_MONTAGNE, 2),
+        PLAINE(IConfig.SPRITE_PLAINE, 0),
+        VILLAGE(IConfig.SPRITE_VILLAGE, -3);
         
+        private final String spritePath;
         private final int degatModif;
         
-        private TypeTerrain(int degatModif)
+        private TypeTerrain(String spritePath, int degatModif)
         {
+            this.spritePath = spritePath;
             this.degatModif = degatModif;
+        }
+        
+        private String getSpritePath()
+        {
+            return this.spritePath;
         }
         
         private int getDegatModif()
@@ -44,6 +55,7 @@ public class Element
         }
     }
     
+    /* Shall we keep this ? */
     private void setRandomTerrainType()
     {        
         typeTerrain = TypeTerrain.values()[
@@ -52,33 +64,8 @@ public class Element
     
     private void setSprite() throws IOException
     {
-        switch (typeTerrain)
-        {
-            case LAC:
-                sprite = ImageIO.read(
-                        getClass().getResource(IConfig.SPRITE_LAC));
-            break;
-            
-            case FORET:
-                sprite = ImageIO.read(
-                        getClass().getResource(IConfig.SPRITE_FORET));
-            break;
-            
-            case MONTAGNE:
-                sprite = ImageIO.read(
-                        getClass().getResource(IConfig.SPRITE_MONTAGNE));
-            break;
-            
-            case PLAINE:
-                sprite = ImageIO.read(
-                        getClass().getResource(IConfig.SPRITE_PLAINE));
-            break;
-            
-            case VILLAGE:
-                sprite = ImageIO.read(
-                        getClass().getResource(IConfig.SPRITE_VILLAGE));
-            break;
-        }
+        sprite = ImageIO.read(
+                getClass().getResource(typeTerrain.getSpritePath()));
         
         spriteBrouillard = ImageIO.read(
                         getClass().getResource(IConfig.SPRITE_BROUILLARD));
