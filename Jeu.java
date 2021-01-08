@@ -37,7 +37,6 @@ public class Jeu {
 		map.setPreferredSize(new Dimension(
 				IConfig.LARGEUR_CARTE * ( IConfig.HEX_SIZE + h ) + h + 1,
 				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
-		map.setBackground(Color.BLUE);
 		frame.getContentPane().add(map);
 		map.addMouseMotionListener(new MouseMotionListener() {
 
@@ -50,9 +49,9 @@ public class Jeu {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Auto-generated method stub
-				int xPos= e.getX();
-			    int yPos= e.getY();
-			    System.out.println("mouse coords : ("+xPos+","+yPos+")");
+			    map.carte.mouse_x= e.getX();
+			    map.carte.mouse_y= e.getY();
+			    map.repaint();
 			}
 		    
 		});

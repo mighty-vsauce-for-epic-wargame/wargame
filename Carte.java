@@ -15,6 +15,7 @@ public class Carte implements ICarte
     private final Soldat unites[][];
     private final int VALEUR_CORRECTIVE = 4;
     
+    public int mouse_x, mouse_y;
     
     
     public Carte()
@@ -207,7 +208,7 @@ public class Carte implements ICarte
                                 yOffset * (Math.floorMod(i, 2) + j + 1),
                         IConfig.HEX_SIZE);
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
-        		if (hex.contains(70,70)) { // change to mouse coordinates
+        		if (hex.contains(mouse_x,mouse_y)) { // change to mouse coordinates
                 	g.setColor(Color.RED);
                 	((Graphics2D)g).setStroke(new BasicStroke(2.0f));
                 	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
