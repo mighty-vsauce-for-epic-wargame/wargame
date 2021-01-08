@@ -14,9 +14,9 @@ public class Carte implements ICarte
     private final Element carte[][];
     private final Soldat unites[][];
     private final int VALEUR_CORRECTIVE = 4;
+    private TypeTerrain biomeTypeTerrain = null;
     
-    public int mouse_x, mouse_y;
-    
+    public int mouse_x, mouse_y;    
     
     public Carte()
     {
@@ -36,7 +36,8 @@ public class Carte implements ICarte
                 carte[i][j] = new Element();
                 
                 if (peutSpawner(carte[i][j]))
-                {                
+                {
+                    /* Monstres à gauche, héros à droite */
                     if (i < (IConfig.LARGEUR_CARTE / 2))
                         unites[i][j] = genererUniteAleatoire(i, j, false);
                     else
@@ -45,6 +46,27 @@ public class Carte implements ICarte
             }
         }
     }
+    
+    /*private TypeTerrain getRandomTerrainType()
+    {        
+        if (biomeTypeTerrain != null)
+        {
+            if (!unCinq())
+                return biomeTypeTerrain;
+            else
+            {
+                return biomeTypeTerrain =
+                    TypeTerrain.values()[
+                    new Random().nextInt(TypeTerrain.values().length)];
+            }
+        }
+        else
+        {
+            return biomeTypeTerrain =
+                TypeTerrain.values()[
+                new Random().nextInt(TypeTerrain.values().length)];
+        }
+    }*/
     
     private boolean peutSpawner(Element elem)
     {
