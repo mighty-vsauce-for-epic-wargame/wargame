@@ -46,6 +46,10 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		return health;
 	}
 	
+	public int getDamage() {
+		return damage;
+	}
+	
 	public void setHealth(int l) {
 		health = l;
 	}

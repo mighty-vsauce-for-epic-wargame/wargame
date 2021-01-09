@@ -66,6 +66,12 @@ public class Jeu {
 				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		frame.getContentPane().add(map);
 		
+		// adding the bottom info label
+		JLabel hover_info= new JLabel();
+		frame.getContentPane().add(hover_info,BorderLayout.SOUTH);
+		hover_info.setText("Hello world!");
+		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		
 		// events of top commands
 		b_load.addActionListener(map);
 		b_save.addActionListener(map);
@@ -81,9 +87,19 @@ public class Jeu {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
-			    map.carte.mouse_x= e.getX();
-			    map.carte.mouse_y= e.getY();
+				Position pos= null;
+				Soldat unite;
+				int mousePos[]= Carte.posToHex(e.getX(),e.getY());
+				if (mousePos!=null) {
+					pos= new Position(mousePos[X],mousePos[Y]);
+				    map.carte.mouse_x= e.getX();
+				    map.carte.mouse_y= e.getY();
+				    unite= map.carte.getUnite(pos);
+				    if (unite!=null) {
+				    	map.afficherInfobulle(unite);
+				    	hover_info.setText(unite.getSoldierType()+" ("+unite.getHealth()+" PV / "+unite.getDamage()+" ATT)");
+				    }
+				}
 			    map.repaint();
 			}
 		    
@@ -139,12 +155,6 @@ public class Jeu {
 				
 			}
 		});
-		
-		// adding the bottom info label
-		JLabel hover_info= new JLabel();
-		frame.getContentPane().add(hover_info,BorderLayout.SOUTH);
-		hover_info.setText("Hello world!");
-		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		
 		// setting the window and displaying it
 		frame.setLocation(256,128);
