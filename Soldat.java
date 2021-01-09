@@ -110,7 +110,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 			return 0;
 		}else {
 			//it's a long range attack
-			if(this.distance(soldier) < this.visualRange) {
+			if(this.distance(soldier) < this.visualRange && this.longRange > 0) {
 				soldier.setHealth(soldier.getHealth() - this.longRange + soldier.getDefence());
 				return 0;
 			}

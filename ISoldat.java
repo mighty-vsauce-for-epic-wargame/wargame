@@ -17,13 +17,15 @@ public interface ISoldat {
 	
 	
 	static enum TypesS {
-		HUMAN(110, 3, 20, 8, 100, 4, 0), DWARF(50, 2, 10, 0, 40, 3, 0), ELF(90, 4, 12, 15, 180, 4, 0), 
-		HOBBIT(30, 8, 5, 2, 70, 7, 0), TROLL(170, 1, 30, 0, 250, 3, 0), ORC(100, 2, 25, 4, 100, 4, 0), GOBLIN(30, 8, 5, 2, 70, 7, 0),
-		NAZGUL(200, 1, 50, 0, 500, 2, 0);
+		HUMAN(110, 3, 20, 8, 100, 4, 0, false), DWARF(50, 2, 10, 0, 40, 3, 0, false), ELF(90, 4, 12, 15, 180, 4, 0, false), 
+		HOBBIT(30, 7, 5, 0, 70, 7, 0, false), TROLL(170, 1, 30, 0, 250, 3, 0, false), 
+		ORC(100, 2, 25, 10, 100, 4, 0, false), GOBLIN(30, 7, 5, 0, 70, 7, 0, false),
+		NAZGUL(200, 1, 50, 0, 500, 2, 0, false);
 
 		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
+		private final boolean PLAYED;
 
-		TypesS(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
+		TypesS(int points, int portee, int puissance, int tir, int prix, int movement, int defence, boolean played) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
             DAMAGE = puissance;
@@ -31,6 +33,7 @@ public interface ISoldat {
 			PRICE = prix;
 			MOVEMENT = movement;
 			DEFENCE = defence;
+			PLAYED = played;
 		}
 
 		public int getHealth() {
@@ -59,6 +62,10 @@ public interface ISoldat {
 		
 		public int getDefence() {
 			return DEFENCE;
+		}
+		
+		public boolean getPlayed() {
+			return PLAYED;
 		}
 		
 		public static TypesS getTypeSAlea() {
