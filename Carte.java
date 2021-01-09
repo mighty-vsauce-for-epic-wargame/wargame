@@ -1,6 +1,6 @@
 package wargame;
 
-import java.awt.BasicStroke;
+/*import java.awt.BasicStroke;*/
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -179,7 +179,7 @@ public class Carte implements ICarte
     public boolean deplacerSoldat(Position pos, Soldat soldat)
     {
     	
-    	if (soldat.getPosition().equals(pos) && !pos.estValide()) {
+    	if (soldat.getPosition().equals(pos) || !pos.estValide()) {
     		return false;
     	} else {
 	        unites[pos.getX()][pos.getY()] =
@@ -202,6 +202,15 @@ public class Carte implements ICarte
         Jeu.update_info_string();
     }
 
+    public void combat(Soldat s1, Soldat s2) {
+    	s1.combat(s2,1);
+    	s2.combat(s1,1);
+    	if (s1.getHealth()<=0)
+    		mort(s1);
+    	if (s2.getHealth()<=0)
+    		mort(s2);
+    }
+    
     @Override
     public boolean actionHeros(Position pos, Position pos2)
     {
@@ -214,7 +223,7 @@ public class Carte implements ICarte
         
     }
     
-    public void sauvegarder() throws IOException, WargameException
+    public void sauvegarder() throws WargameException
     {
         ObjectOutputStream output;
         FileOutputStream fichierSauvegarde;
@@ -233,14 +242,13 @@ public class Carte implements ICarte
         }
         catch (IOException e)
         {
+        	e.printStackTrace();
             throw new WargameException(
                     "Le jeu n'a pas pu être sauvegardé.");
         }
     }
     
     public void charger() throws
-            IOException,
-            ClassNotFoundException,
             WargameException
     {
         ObjectInputStream input;
@@ -255,6 +263,7 @@ public class Carte implements ICarte
             save = (SaveObject) input.readObject();
             carte = save.getCarte();
             unites = save.getUnites();
+            input.close();
         }
         catch (IOException | ClassNotFoundException e)
         {
@@ -312,10 +321,11 @@ public class Carte implements ICarte
                         IConfig.HEX_SIZE);
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
         		if (hex.contains(mouse_x,mouse_y)) { // change to mouse coordinates
-                	g.setColor(Color.RED);
-                	((Graphics2D)g).setStroke(new BasicStroke(2.0f));
+                	g.setColor(new Color(255,255,255,50));
+                	g.fillPolygon(hex);
+                	/*((Graphics2D)g).setStroke(new BasicStroke(2.0f));
                 	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
-                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));
+                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));*/
                 }
         		
         		/* draw the troops */

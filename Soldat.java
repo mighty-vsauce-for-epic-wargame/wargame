@@ -2,11 +2,17 @@ package wargame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
-public class Soldat extends Position implements ISoldat{
+public class Soldat extends Position implements ISoldat,Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4358118282828361652L;
+
 	Position posSoldat;
 	
 	private int health, visualRange, damage, longRange, price, movement, defence;

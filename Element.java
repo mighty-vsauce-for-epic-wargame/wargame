@@ -2,12 +2,15 @@ package wargame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
-public class Element
+public class Element implements Serializable
 {
-    public enum TypeTerrain
+	private static final long serialVersionUID = 5704426075833872252L;
+
+	public enum TypeTerrain
     {
         LAC(IConfig.SPRITE_LAC, 0),
         FORET(IConfig.SPRITE_FORET, -2),
