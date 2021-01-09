@@ -133,7 +133,12 @@ public class Jeu {
 					if (unit!=null) {
 						other= map.carte.getUnite(pos);
 						if (other!=null && !other.getisHero()) {
-							map.carte.combat(unit,other);
+							try {
+								map.carte.combat(unit,other);
+							} catch (WargameException e2) {
+								// TODO Auto-generated catch block
+								WargameException.montrerMessageBoxNonFatal(e2.getMessage());
+							}
 						} else {
 							try {
 								map.carte.deplacerSoldat(pos, unit);

@@ -9,7 +9,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	Position posSoldat;
 	
 	private int health, visualRange, damage, longRange, price, movement, defence;
-	private boolean isHero;
+	private boolean isHero, played;
     private TypesS soldierType;
 	
 	public static int NB_MONSTRES= 0;
@@ -34,6 +34,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 
 		this.isHero = isHero;
 		this.soldierType = soldierType;
+		this.played = false;
 		Jeu.update_info_string();
 	}
 	
@@ -89,6 +90,14 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	
 	public int getDefence() {
 		return defence;
+	}
+	
+	public boolean getPlayed() {
+		return played;
+	}
+	
+	public void setPlayed(boolean b) {
+		this.played = b;
 	}
 	
 	public int[] hex_to_cube(Position p) {
