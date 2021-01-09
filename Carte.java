@@ -189,8 +189,12 @@ public class Carte implements ICarte
     @Override
     public boolean deplacerSoldat(Position pos, Soldat soldat)
     {
-    	
-    	if (soldat.getPosition().equals(pos) || !pos.estValide()) {
+    	Element terrain= carte[pos.getX()][pos.getY()];
+    	if (soldat.getPosition().equals(pos) 
+    			|| !pos.estValide() 
+    			|| unites[pos.getX()][pos.getY()]!=null
+    			|| terrain.getTypeTerrain()==Element.TypeTerrain.MONTAGNE
+    			|| terrain.getTypeTerrain()==Element.TypeTerrain.LAC) {
     		return false;
     	} else {
 	        unites[pos.getX()][pos.getY()] =

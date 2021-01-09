@@ -27,6 +27,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 		if (command.equals("save")) {
 			try {
 				carte.sauvegarder();
+				System.out.println("Saved !");
 			} catch (WargameException e1) {
 				// TODO Auto-generated catch block
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
@@ -36,10 +37,10 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			try {
 				carte.charger();
 				repaint();
+				System.out.println("Loaded !");
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
-			System.out.println("Loaded !");
 		}
 	}
 	

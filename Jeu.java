@@ -97,7 +97,14 @@ public class Jeu {
 				    unite= map.carte.getUnite(pos);
 				    if (unite!=null) {
 				    	map.afficherInfobulle(unite);
-				    	hover_info.setText(unite.getSoldierType()+" ("+unite.getHealth()+" PV / "+unite.getDamage()+" ATT)");
+				    	hover_info.setText(
+				    			unite.getSoldierType()
+				    			+" ("+unite.getHealth()
+				    			+" PV / "
+				    			+unite.getDamage()
+				    			+" MEL / "
+				    			+unite.getLongRange()
+				    			+" RNG)");
 				    }
 				}
 			    map.repaint();

@@ -9,10 +9,10 @@ public class Element implements Serializable
     public enum TypeTerrain
     {
         LAC(0),
-        FORET(-2),
+        FORET(+2),
         MONTAGNE(2),
         PLAINE(0),
-        VILLAGE(-3);
+        VILLAGE(+3);
         
         private final int degatModif;
         
