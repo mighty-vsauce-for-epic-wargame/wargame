@@ -203,7 +203,7 @@ public class Carte implements ICarte
     }
 
     public void combat(Soldat s1, Soldat s2) {
-    	s1.combat(s2,1);
+    	s1.combat(s2,1); // appelle la fonction combat du soldat avec par défaut une attaque mélée (1)
     	s2.combat(s1,1);
     	if (s1.getHealth()<=0)
     		mort(s1);
