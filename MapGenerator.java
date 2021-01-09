@@ -16,14 +16,7 @@ public class MapGenerator
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                try
-                {
-                    carte[i][j] = new Element(TypeTerrain.PLAINE);
-                }
-                catch (WargameException e)
-                {
-                    WargameException.montrerMessageBoxFatal(e.getMessage());
-                }
+                carte[i][j] = new Element(TypeTerrain.PLAINE);
             }
         }
         
@@ -45,14 +38,7 @@ public class MapGenerator
                 coordY = {y + 1, y - 1, y};
         int newX, newY;
         
-        try
-        {
-            carte[x][y] = new Element(typeTerrain);
-        }
-        catch (WargameException e)
-        {
-            WargameException.montrerMessageBoxFatal(e.getMessage());
-        }
+        carte[x][y] = new Element(typeTerrain);
 
         if (pourcentageChance(85))
         {
@@ -61,15 +47,7 @@ public class MapGenerator
 
             if(coordonneeValide(newX, newY))
             {
-                try
-                {
-                    carte[newX][newY] = new Element(typeTerrain);
-                }
-                catch (WargameException e)
-                {
-                    WargameException.montrerMessageBoxFatal(e.getMessage());
-                }
-                
+                carte[newX][newY] = new Element(typeTerrain);                
                 generationBiome(carte, typeTerrain, newX, newY);
             }
         }
@@ -107,16 +85,7 @@ public class MapGenerator
             if (biome)
                 generationBiome(carte, typeTerrain, x, y);
             else
-            {
-                try
-                {
-                    carte[x][y] = new Element(typeTerrain);
-                }
-                catch (WargameException e)
-                {
-                    WargameException.montrerMessageBoxFatal(e.getMessage());
-                }
-            }
+                carte[x][y] = new Element(typeTerrain);
         }
     }
 }

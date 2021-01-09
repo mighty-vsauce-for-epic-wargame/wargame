@@ -42,4 +42,9 @@ public class PanneauJeu extends JPanel implements ActionListener {
 		}
 	}
 	
+	public void afficherInfobulle(Soldat soldier) {
+		System.out.println("Soldat "+soldier.getPosition()+" "+soldier.getHealth()+" PV");
+		
+	}
+	
 }
