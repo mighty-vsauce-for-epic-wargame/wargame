@@ -18,23 +18,41 @@ public class Jeu {
 	public static void main(String[] args) {		
 		
 		// create the JFrame
-		JFrame frame= new JFrame("Mighty Loot for Epic Wargame");
+		JFrame frame= new MyFrame("Mighty Loot for Epic Wargame");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// adding the top bar
 		JPanel topbar= new JPanel();
+		topbar.setLayout(new BorderLayout());
 		frame.getContentPane().add(topbar,BorderLayout.NORTH);
 		
-		// adding the end of turn button on the top bar
+		//adding a panel for the top commands
+		JPanel commands= new JPanel();
+		topbar.add(commands,BorderLayout.NORTH);
+		
+		// adding a panel for game buttons
+		JPanel game_buttons= new JPanel();
+		topbar.add(game_buttons,BorderLayout.SOUTH);
+		
+		// adding save and load buttons
+		JButton b_save= new JButton("Sauvegarder");
+		JButton b_load= new JButton("Charger");
+		b_save.setPreferredSize(new Dimension(128,32));
+		b_load.setPreferredSize(new Dimension(100,32));
+		commands.add(b_save,BorderLayout.CENTER);
+		commands.add(b_load,BorderLayout.CENTER);
+		
+		// adding the end of turn button
 		JButton b_fin= new JButton("Fin de tour");
 		b_fin.setPreferredSize(new Dimension(128,32));
-		topbar.add(b_fin,BorderLayout.CENTER);
+		b_fin.setBackground(new Color(200,0,0));
+		game_buttons.add(b_fin,BorderLayout.CENTER);
 		
 		// adding the info string next to the button
 		info= new JLabel();
 		info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
 		info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
-		topbar.add(info,BorderLayout.CENTER);
+		game_buttons.add(info,BorderLayout.CENTER);
 		
 		// adding the map
 		PanneauJeu map= new PanneauJeu();
@@ -71,6 +89,9 @@ public class Jeu {
 				if (coord!=null) {
 					System.out.println("Pressed at "+coord[X]+","+coord[Y]);
 					unit= map.carte.getUnite(new Position(coord[X],coord[Y]));
+					if (unit!=null)
+						if (!unit.getisHero())
+							unit= null;
 					System.out.println(unit);
 				}
 			}
@@ -79,11 +100,17 @@ public class Jeu {
 			public void mouseReleased(MouseEvent e) {
 				int coord[]= Carte.posToHex(e.getX(),e.getY());
 				Position pos;
+				Soldat other;
 				if (coord!=null) {
 					pos= new Position(coord[X],coord[Y]);
 					System.out.println("Released at "+pos.getX()+","+pos.getY());
 					if (unit!=null) {
-						map.carte.deplacerSoldat(new Position(coord[X],coord[Y]), unit);
+						other= map.carte.getUnite(pos);
+						if (other!=null && !other.getisHero()) {
+							map.carte.combat(unit,other);
+						} else {
+							map.carte.deplacerSoldat(pos, unit);
+						}
 					}
 					map.carte.mouse_x= e.getX();
 				    map.carte.mouse_y= e.getY();
