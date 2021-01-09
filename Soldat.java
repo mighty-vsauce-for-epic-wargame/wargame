@@ -101,7 +101,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	}
 	
 	//a changer
-	public int distance(Position p) {
+	/*public int distance(Position p) {
 		//they're in the same column or line
 		if (this.posSoldat.getX() == p.getX()) {
 			return Math.abs(this.posSoldat.getY() - p.getY());
@@ -134,10 +134,37 @@ public class Soldat extends Position implements ISoldat,Serializable{
 			return diffY + 1;
 		}
 		
+		if(diffX % 2 == 1 && diffY <= 1) {
+			return 
+		}
+		
+		
+		
 		return -1;
+	}*/
+	
+	/*
+		function cube_distance(a, b):
+	    	return (abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)) / 2
+	
+		function oddq_to_cube(hex):
+	    	var x = hex.col
+	    	var z = hex.row - (hex.col - (hex.col % 2)) / 2
+	    	var y = -x-z
+	    	return Cube(x, y, z)
+    */
+	
+	public int[] hex_to_cube(Position p) {
+		int x = p.getX();
+		int z = p.getY() - (x - (x % 2)) / 2;
+		int y = - x - z;
+		int a[] = {x,z,y};
+		return a;
 	}
 	
-	
+	public int distance(int[] a, int[] b) {
+		return (Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) + Math.abs(a[3] - b[3])) / 2;
+	}
 	
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {
