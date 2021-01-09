@@ -60,6 +60,23 @@ public class Element implements Serializable
         }
     }
     
+    public Element(TypeTerrain typeTerrain) throws WargameException
+    {
+        visible = true;
+        this.typeTerrain = typeTerrain;
+        
+        try
+        {
+            setSprite();
+        }
+        catch (IOException | IllegalArgumentException e)
+        {
+            throw new WargameException(
+                    "Erreur lors du chargement d'un sprite, " +
+                    "arrêt de l'application");
+        }
+    }
+    
     /* Shall we keep this ? */
     private void setRandomTerrainType()
     {        

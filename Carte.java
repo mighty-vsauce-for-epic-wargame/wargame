@@ -34,20 +34,12 @@ public class Carte implements ICarte
     private void initialiserCarte()
     {
         int i, j;
+        carte = MapGenerator.getRandomMap();
         
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
-            {
-                try
-                {
-                    carte[i][j] = new Element();
-                }
-                catch (WargameException e)
-                {
-                    WargameException.montrerMessageBoxFatal(e.getMessage());
-                }
-                
+            {                
                 if (peutSpawner(carte[i][j]))
                 {
                     /* Monstres à gauche, héros à droite */
