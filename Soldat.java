@@ -2,7 +2,6 @@ package wargame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import wargame.ISoldat.TypesS;
 
 import javax.imageio.ImageIO;
 
@@ -177,6 +176,8 @@ public class Soldat extends Position implements ISoldat{
 	                sprite = ImageIO.read(
 	                        getClass().getResource(ISoldat.SPRITE_HOBBIT));
 	            break;
+			default:
+				break;
 	            
 	            
 	        }
@@ -201,6 +202,8 @@ public class Soldat extends Position implements ISoldat{
 	                sprite = ImageIO.read(
 	                        getClass().getResource(ISoldat.SPRITE_NAZGUL));
 	            break;
+			default:
+				break;
 			}
 		}
     }

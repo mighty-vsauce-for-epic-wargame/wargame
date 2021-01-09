@@ -2,6 +2,7 @@ package wargame;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.*;
@@ -9,6 +10,10 @@ import javax.swing.*;
 public class Jeu {
 	
 	public static JLabel info;
+	public static final int X= 0;
+	public static final int Y= 1;
+	static Soldat unit; // used for events
+	
 	
 	public static void main(String[] args) {		
 		
@@ -40,8 +45,10 @@ public class Jeu {
 				IConfig.LARGEUR_CARTE * ( IConfig.HEX_SIZE + h ) + h + 1,
 				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		frame.getContentPane().add(map);
+		
+		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
-
+			
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -56,6 +63,51 @@ public class Jeu {
 			    map.repaint();
 			}
 		    
+		});
+		map.addMouseListener(new MouseListener() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int coord[]= Carte.posToHex(e.getX(),e.getY());
+				if (coord!=null) {
+					System.out.println("Pressed at "+coord[X]+","+coord[Y]);
+					unit= map.carte.getUnite(new Position(coord[X],coord[Y]));
+					System.out.println(unit);
+				}
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int coord[]= Carte.posToHex(e.getX(),e.getY());
+				Position pos;
+				if (coord!=null) {
+					pos= new Position(coord[X],coord[Y]);
+					System.out.println("Released at "+pos.getX()+","+pos.getY());
+					if (unit!=null) {
+						map.carte.deplacerSoldat(new Position(coord[X],coord[Y]), unit);
+					}
+					map.carte.mouse_x= e.getX();
+				    map.carte.mouse_y= e.getY();
+				    map.repaint();
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		
 		// adding the bottom info label
