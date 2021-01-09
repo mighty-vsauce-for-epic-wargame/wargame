@@ -38,4 +38,9 @@ public class Position implements IConfig {
 	public boolean estVoisine(Position pos) {
 		return ((Math.abs(x - pos.x) <= 1) && (Math.abs(y - pos.y) <= 1));
 	}
+	@Override
+	public boolean equals(Object o) {
+		Position pos= (Position) o;
+		return (pos.getX()==this.getX() && pos.getY()==this.getY());
+	}
 }

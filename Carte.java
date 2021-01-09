@@ -20,7 +20,7 @@ public class Carte implements ICarte
 {
     private Element carte[][];
     private Soldat unites[][];
-    private final int VALEUR_CORRECTIVE = 4;
+    private static final int VALEUR_CORRECTIVE = 4;
     
     public int mouse_x, mouse_y;    
     
@@ -179,11 +179,16 @@ public class Carte implements ICarte
     @Override
     public boolean deplacerSoldat(Position pos, Soldat soldat)
     {
-        unites[pos.getX()][pos.getY()] =
-            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];
-        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
-        
-        return true;
+    	
+    	if (soldat.getPosition().equals(pos) && !pos.estValide()) {
+    		return false;
+    	} else {
+	        unites[pos.getX()][pos.getY()] =
+	            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];
+	        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
+    		soldat.seDeplace(pos);
+	        return true;
+    	}
     }
 
     @Override
@@ -323,4 +328,33 @@ public class Carte implements ICarte
         	}
         }
     }
+	
+	
+	public static int[] posToHex(int x, int y) {
+		int i,j;
+		int points[][];
+		Polygon hex;
+		int xOffset= (int)Hexagon.calculH(IConfig.HEX_SIZE);
+		int yOffset= (int)Hexagon.calculR(IConfig.HEX_SIZE);
+		int coord[]= new int[2];
+		for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+        	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+        		
+        		points = Hexagon.calculPoints(
+                        i * IConfig.HEX_SIZE + xOffset * (i + 1),
+                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+                                yOffset * (Math.floorMod(i, 2) + j + 1),
+                        IConfig.HEX_SIZE);
+                hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+        		if (hex.contains(x,y)) { // change to mouse coordinates
+                	coord[0]= i;
+                	coord[1]= j;
+                	return coord;
+                }
+        	}
+		}
+		return null;
+	}
+	
+	
 }
