@@ -69,6 +69,7 @@ public class Jeu {
 		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
+		
 	}
 	
 	public static void update_info_string() {

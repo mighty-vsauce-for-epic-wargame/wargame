@@ -97,9 +97,34 @@ public class Soldat extends Position implements ISoldat{
 	
 	//a changer
 	public int distance(Position p) {
+		//they're in the same column or line
+		if (this.posSoldat.getX() == p.getX()) {
+			return Math.abs(this.posSoldat.getY() - p.getY());
+		}else if (this.posSoldat.getY() == p.getY()) {
+			return Math.abs(this.posSoldat.getX() - p.getX());
+		}
 		
+		boolean xPair;
+		if(this.posSoldat.getX() % 2 == 0)
+			xPair = true;
+		else
+			xPair = false;
 		
-		return 0;
+		int diffX = Math.abs(this.posSoldat.getX() - p.getX());
+		int diffY = Math.abs(this.posSoldat.getY() - p.getY());
+		
+		//it's a neighbor
+		if(Math.abs(diffX) + Math.abs(diffY) <= 2) {
+			return 1;
+		}
+		
+		//we look at the diagonals
+		if(xPair && (diffX == 2 * diffY || diffX == 2 * diffY + 1)) {
+			return Math.abs(diffX);
+		}else if(!xPair && (diffX == 2 * diffY || diffX == 2 * diffY - 1)) {
+			return Math.abs(diffX);
+		}
+		return -1;
 	}
 	
 	
