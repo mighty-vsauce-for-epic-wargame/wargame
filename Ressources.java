@@ -14,6 +14,8 @@ public class Ressources
     private BufferedImage spritePlaine;
     private BufferedImage spriteVillage;
     
+    private BufferedImage spriteBrouillard;
+    
     private BufferedImage spriteHumain;
     private BufferedImage spriteNain;
     private BufferedImage spriteElfe;
@@ -61,6 +63,10 @@ public class Ressources
         spriteVillage = 
             ImageIO.read(
                     getClass().getResource(IConfig.SPRITE_VILLAGE));
+        
+        spriteBrouillard = 
+            ImageIO.read(
+                    getClass().getResource(IConfig.SPRITE_BROUILLARD));
     }
     
     private void initSoldatsSprites() throws
@@ -98,6 +104,11 @@ public class Ressources
         spriteNazgul = 
             ImageIO.read(
                     getClass().getResource(ISoldat.SPRITE_NAZGUL));
+    }
+    
+    public BufferedImage getBrouillardSprite()
+    {
+        return spriteBrouillard;
     }
     
     public BufferedImage getTerrainSprite(TypeTerrain typeTerrain)

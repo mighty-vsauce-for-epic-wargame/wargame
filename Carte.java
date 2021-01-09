@@ -63,6 +63,48 @@ public class Carte implements ICarte
         }
     }
     
+    /* Calcule le brouillard à appliquer sur la carte */
+    public void appliquerBrouillard()
+    {
+        int i, j, k, l;
+        boolean caseVue = false;
+        
+        /* Pour chaque case, si une unité peut voir la case,
+           alors il n'y a pas de brouillard */
+        for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
+        {
+            for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
+            {
+                /* Par défaut on mets le brouillard */
+                carte[i][j].setBrouillard(true);
+                
+                for (k = 0; k < IConfig.LARGEUR_CARTE; k++)
+                {
+                    for (l = 0; l < IConfig.HAUTEUR_CARTE; l++)
+                    {
+                        /* Si l'unité actuelle (héros) peut voir la case,
+                           on s'arrête là */
+                        if (unites[k][l] != null &&
+                            unites[k][l].getisHero() &&
+                            unites[k][l].getPosition().distance(new Position(i, j)) <= 
+                                unites[k][l].getVisualRange())
+                        {
+                            carte[i][j].setBrouillard(false);
+                            caseVue = true;
+                            break;
+                        }
+                    }
+                    
+                    if (caseVue)
+                        break;
+                }
+                
+                if (caseVue)
+                    caseVue = false;
+            }
+        }
+    }
+    
     /* Comportement aléatoire */
     public void jouerTourIA() throws WargameException
     {
@@ -379,7 +421,7 @@ public class Carte implements ICarte
                 
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
                 ((Graphics2D) g).setClip(hex); // pour que l'image se dessine uniquement dans l'hexagone
-                
+                                
                 /* draw the map */
                 g.drawImage(
                         ressources.getTerrainSprite(carte[i][j].getTypeTerrain()),

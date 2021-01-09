@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class Element implements Serializable
 {
     private static final long serialVersionUID = 5704426075833872252L;
+    
+    private boolean brouillard;
 
     public enum TypeTerrain
     {
@@ -32,6 +34,7 @@ public class Element implements Serializable
     public Element(TypeTerrain typeTerrain)
     {
         this.typeTerrain = typeTerrain;
+        this.brouillard = false;
     }
     
     public int getDegatModif()
@@ -42,5 +45,15 @@ public class Element implements Serializable
     public TypeTerrain getTypeTerrain()
     {
         return typeTerrain;
+    }
+    
+    public boolean brouillard()
+    {
+        return brouillard;
+    }
+    
+    public void setBrouillard(boolean brouillard)
+    {
+        this.brouillard = brouillard;
     }
 }
