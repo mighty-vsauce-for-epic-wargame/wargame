@@ -83,7 +83,7 @@ public class Jeu {
 					pos= new Position(coord[X],coord[Y]);
 					System.out.println("Released at "+pos.getX()+","+pos.getY());
 					if (unit!=null) {
-						map.carte.deplacerSoldat(new Position(coord[X],coord[Y]), unit);
+						map.carte.deplacerSoldat(pos, unit);
 					}
 					map.carte.mouse_x= e.getX();
 				    map.carte.mouse_y= e.getY();

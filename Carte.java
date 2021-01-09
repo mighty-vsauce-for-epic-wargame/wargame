@@ -180,7 +180,7 @@ public class Carte implements ICarte
     public boolean deplacerSoldat(Position pos, Soldat soldat)
     {
     	
-    	if (soldat.getPosition().equals(pos) && !pos.estValide()) {
+    	if (soldat.getPosition().equals(pos) || !pos.estValide()) {
     		return false;
     	} else {
 	        unites[pos.getX()][pos.getY()] =
