@@ -122,6 +122,11 @@ public class Carte implements ICarte
     {
         return carte[pos.getX()][pos.getY()];
     }
+    
+    public Soldat getUnite(Position pos)
+    {
+        return unites[pos.getX()][pos.getY()];
+    }
 
     @Override
     public Position trouverPositionVide()
