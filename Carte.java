@@ -39,7 +39,14 @@ public class Carte implements ICarte
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                carte[i][j] = new Element();
+                try
+                {
+                    carte[i][j] = new Element();
+                }
+                catch (WargameException e)
+                {
+                    WargameException.montrerMessageBoxFatal(e.getMessage());
+                }
                 
                 if (peutSpawner(carte[i][j]))
                 {
@@ -215,7 +222,7 @@ public class Carte implements ICarte
         
     }
     
-    public void sauvegarder()
+    public void sauvegarder() throws IOException, WargameException
     {
         ObjectOutputStream output;
         FileOutputStream fichierSauvegarde;
@@ -223,7 +230,7 @@ public class Carte implements ICarte
 
         try
         {
-            fichierSauvegarde = new FileOutputStream("sauvegarde.ser");
+            fichierSauvegarde = new FileOutputStream(IConfig.SAVEFILE_NAME);
             output = new ObjectOutputStream(fichierSauvegarde);
             
             save = new SaveObject(carte, unites);
@@ -234,11 +241,15 @@ public class Carte implements ICarte
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            throw new WargameException(
+                    "Le jeu n'a pas pu être sauvegardé.");
         }
     }
     
-    public void charger()
+    public void charger() throws
+            IOException,
+            ClassNotFoundException,
+            WargameException
     {
         ObjectInputStream input;
         FileInputStream fichierInput;
@@ -246,7 +257,7 @@ public class Carte implements ICarte
 
         try
         {
-            fichierInput = new FileInputStream("sauvegarde.ser");
+            fichierInput = new FileInputStream(IConfig.SAVEFILE_NAME);
             input = new ObjectInputStream(fichierInput);
             
             save = (SaveObject) input.readObject();
@@ -255,7 +266,8 @@ public class Carte implements ICarte
         }
         catch (IOException | ClassNotFoundException e)
         {
-            e.printStackTrace();
+            throw new WargameException(
+                    "Le fichier de sauvegarde n'a pas pu être chargé.");
         }
     }
 

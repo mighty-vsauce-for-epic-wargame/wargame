@@ -40,7 +40,7 @@ public class Element
     private BufferedImage spriteBrouillard;
     private boolean visible;
     
-    public Element()
+    public Element() throws WargameException
     {
         setRandomTerrainType();
         visible = true;
@@ -49,9 +49,11 @@ public class Element
         {
             setSprite();
         }
-        catch (IOException e)
+        catch (IOException | IllegalArgumentException e)
         {
-            e.printStackTrace();
+            throw new WargameException(
+                    "Erreur lors du chargement d'un sprite, " +
+                    "arrêt de l'application");
         }
     }
     
@@ -62,7 +64,7 @@ public class Element
                 new Random().nextInt(TypeTerrain.values().length)];
     }
     
-    private void setSprite() throws IOException
+    private void setSprite() throws IOException, IllegalArgumentException
     {
         sprite = ImageIO.read(
                 getClass().getResource(typeTerrain.getSpritePath()));
