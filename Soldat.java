@@ -87,70 +87,20 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		return defence;
 	}
 	
-	//a changer
-	/*public int distance(Position p) {
-		//they're in the same column or line
-		if (this.posSoldat.getX() == p.getX()) {
-			return Math.abs(this.posSoldat.getY() - p.getY());
-		}else if (this.posSoldat.getY() == p.getY()) {
-			return Math.abs(this.posSoldat.getX() - p.getX());
-		}
-		
-		boolean xPair;
-		if(this.posSoldat.getX() % 2 == 0)
-			xPair = true;
-		else
-			xPair = false;
-		
-		int diffX = Math.abs(this.posSoldat.getX() - p.getX());
-		int diffY = Math.abs(this.posSoldat.getY() - p.getY());
-		
-		//it's a neighbor
-		if(diffX + diffY <= 2) {
-			return 1;
-		}
-		
-		//we look at the diagonals
-		if(xPair && (diffX == 2 * diffY || diffX == 2 * diffY + 1)) {
-			return diffX;
-		}else if(!xPair && (diffX == 2 * diffY || diffX == 2 * diffY - 1)) {
-			return diffX;
-		}
-		
-		if(diffX == 1) {
-			return diffY + 1;
-		}
-		
-		if(diffX % 2 == 1 && diffY <= 1) {
-			return 
-		}
-		
-		
-		
-		return -1;
-	}*/
-	
-	/*
-		function cube_distance(a, b):
-	    	return (abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)) / 2
-	
-		function oddq_to_cube(hex):
-	    	var x = hex.col
-	    	var z = hex.row - (hex.col - (hex.col % 2)) / 2
-	    	var y = -x-z
-	    	return Cube(x, y, z)
-    */
-	
 	public int[] hex_to_cube(Position p) {
 		int x = p.getX();
 		int z = p.getY() - (x - (x % 2)) / 2;
 		int y = - x - z;
-		int a[] = {x,z,y};
+		int a[] = {x, z, y};
 		return a;
 	}
 	
-	public int distance(int[] a, int[] b) {
-		return (Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) + Math.abs(a[3] - b[3])) / 2;
+	public int distance(Position p) {
+		int[] a = hex_to_cube(this.posSoldat);
+		int[] b = hex_to_cube(p);
+		int rep = (Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])) / 2;
+		System.out.println("La distance entre ces deux est : " + rep);
+		return rep;
 	}
 	
 	public int combat(Soldat soldier, int attackType) {
@@ -160,7 +110,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 			return 0;
 		}else {
 			//it's a long range attack
-			if(distance(soldier.getPosition()) < this.visualRange) {
+			if(this.distance(soldier) < this.visualRange) {
 				soldier.setHealth(soldier.getHealth() - this.longRange + soldier.getDefence());
 				return 0;
 			}

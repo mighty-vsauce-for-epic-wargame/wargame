@@ -75,7 +75,7 @@ public interface ISoldat {
 	/**calculates the distance between soldier position and argument position
 	 * 
 	 * @param p position
-	 * @return distance, -1 if error
+	 * @return distance
 	 */
 	int distance(Position p);
 
