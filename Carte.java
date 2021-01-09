@@ -1,6 +1,5 @@
 package wargame;
 
-/*import java.awt.BasicStroke;*/
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,6 +20,7 @@ public class Carte implements ICarte
     private Element carte[][];
     private Soldat unites[][];
     private static final int VALEUR_CORRECTIVE = 4;
+    private Ressources ressources;
     
     public int mouse_x, mouse_y;    
     
@@ -28,6 +28,17 @@ public class Carte implements ICarte
     {
         carte  = new Element[IConfig.LARGEUR_CARTE][IConfig.HAUTEUR_CARTE];
         unites = new Soldat[IConfig.LARGEUR_CARTE][IConfig.HAUTEUR_CARTE];
+        ressources = null;
+        
+        try
+        {
+            ressources = new Ressources();
+        }
+        catch (WargameException e)
+        {
+            WargameException.montrerMessageBoxFatal(e.getMessage());
+        }
+        
         initialiserCarte();
     }
     
@@ -297,7 +308,7 @@ public class Carte implements ICarte
                 
                 /* draw the map */
                 g.drawImage(
-                        carte[i][j].getTerrainSprite(),
+                        ressources.getTerrainSprite(carte[i][j].getTypeTerrain()),
                         i * IConfig.HEX_SIZE + xOffset * i,
                         j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j + 1),
                         null);
@@ -332,7 +343,7 @@ public class Carte implements ICarte
                 unit= unites[i][j];
                 if (unit!=null) {
                 	g.drawImage(
-                			unit.getSprite(),
+                			ressources.getSoldatSprite(unit.getSoldierType()),
                 			i * IConfig.HEX_SIZE + xOffset * i + IConfig.HEX_SIZE*3/4,
                             j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE)
                             + yOffset * (Math.floorMod(i, 2) + j + 1)
