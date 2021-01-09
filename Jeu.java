@@ -8,6 +8,8 @@ import javax.swing.*;
 
 public class Jeu {
 	
+	public static JLabel info;
+	
 	public static void main(String[] args) {		
 		
 		// create the JFrame
@@ -24,7 +26,7 @@ public class Jeu {
 		topbar.add(b_fin,BorderLayout.CENTER);
 		
 		// adding the info string next to the button
-		JLabel info= new JLabel();
+		info= new JLabel();
 		info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
 		info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		topbar.add(info,BorderLayout.CENTER);
@@ -68,4 +70,9 @@ public class Jeu {
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	public static void update_info_string() {
+		info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
+	}
+	
 }

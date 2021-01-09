@@ -46,6 +46,7 @@ public class Soldat extends Position implements ISoldat{
         {
             e.printStackTrace();
         }
+		Jeu.update_info_string();
 	}
 	
 	
