@@ -1,6 +1,6 @@
 package wargame;
 
-import java.awt.BasicStroke;
+/*import java.awt.BasicStroke;*/
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -317,10 +317,11 @@ public class Carte implements ICarte
                         IConfig.HEX_SIZE);
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
         		if (hex.contains(mouse_x,mouse_y)) { // change to mouse coordinates
-                	g.setColor(Color.RED);
-                	((Graphics2D)g).setStroke(new BasicStroke(2.0f));
+                	g.setColor(new Color(255,255,255,50));
+                	g.fillPolygon(hex);
+                	/*((Graphics2D)g).setStroke(new BasicStroke(2.0f));
                 	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
-                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));
+                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));*/
                 }
         		
         		/* draw the troops */
