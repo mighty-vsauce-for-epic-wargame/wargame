@@ -4,7 +4,11 @@ import javax.swing.JOptionPane;
 
 public class WargameException extends Exception
 {
-    private final String message;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final String message;
     
     public WargameException(String message)
     {

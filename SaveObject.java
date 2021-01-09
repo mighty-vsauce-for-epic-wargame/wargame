@@ -1,8 +1,12 @@
 package wargame;
 
-public class SaveObject
+import java.io.Serializable;
+
+public class SaveObject implements Serializable
 {
-    private Element carte[][];
+
+	private static final long serialVersionUID = 5924297110123552994L;
+	private Element carte[][];
     private Soldat unites[][];
     
     public SaveObject(Element carte[][], Soldat unites[][])
