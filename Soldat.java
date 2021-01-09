@@ -2,6 +2,7 @@ package wargame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import wargame.ISoldat.TypesS;
 
 import javax.imageio.ImageIO;
 
@@ -9,36 +10,30 @@ public class Soldat extends Position implements ISoldat{
 	
 	Position posSoldat;
 	
-	private int health, visualRange, damage, longRange, price, soldierType, movement, defence;
+	private int health, visualRange, damage, longRange, price, movement, defence;
 	private boolean isHero;
 	private BufferedImage sprite;
+        private TypesS soldierType;
 	
 	public static int NB_MONSTRES= 0;
 	public static int NB_HEROS= 0;
 	
-	public Soldat(boolean isHero, int soldierType, int posX, int posY) {
+	public Soldat(boolean isHero, TypesS soldierType, int posX, int posY) {
 		super(posX, posY);
 		posSoldat = new Position(posX, posY);
 		
-		if(isHero) {
-			NB_HEROS++;
-			health = TypesH.values()[soldierType].getHealth();
-			visualRange = TypesH.values()[soldierType].getVisualRange();
-			damage = TypesH.values()[soldierType].getDamage();
-			longRange = TypesH.values()[soldierType].getLongRange();
-			price = TypesH.values()[soldierType].getPrice();
-			movement = TypesH.values()[soldierType].getMovement();
-			defence = TypesH.values()[soldierType].getDefence();
-		}else {
-			NB_MONSTRES++;
-			health = TypesM.values()[soldierType].getHealth();
-			visualRange = TypesM.values()[soldierType].getVisualRange();
-			damage = TypesM.values()[soldierType].getDamage();
-			longRange = TypesM.values()[soldierType].getLongRange();
-			price = TypesM.values()[soldierType].getPrice();
-			movement = TypesM.values()[soldierType].getMovement();
-			defence = TypesM.values()[soldierType].getDefence();
-		}
+                health = soldierType.getHealth();
+                visualRange = soldierType.getVisualRange();
+                damage = soldierType.getDamage();
+                longRange = soldierType.getLongRange();
+                price = soldierType.getPrice();
+                movement = soldierType.getMovement();
+                defence = soldierType.getDefence();
+                
+		if(isHero)
+                    NB_HEROS++;
+		else
+                    NB_MONSTRES++;
 
 		this.isHero = isHero;
 		this.soldierType = soldierType;
@@ -88,7 +83,7 @@ public class Soldat extends Position implements ISoldat{
 		return isHero;
 	}
 	
-	public int getSoldierType() {
+	public TypesS getSoldierType() {
 		return soldierType;
 	}
 	

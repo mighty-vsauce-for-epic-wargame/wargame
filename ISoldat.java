@@ -16,13 +16,14 @@ public interface ISoldat {
 	String SPRITE_NAZGUL= "resources/nazgul.png";
 	
 	
-	static enum TypesH {
+	static enum TypesS {
 		HUMAN(110, 3, 20, 8, 100, 4, 0), DWARF(50, 2, 10, 0, 40, 3, 0), ELF(90, 4, 12, 15, 180, 4, 0), 
-		HOBBIT(30, 8, 5, 2, 70, 7, 0);
+		HOBBIT(30, 8, 5, 2, 70, 7, 0), TROLL(170, 1, 30, 0, 250, 3, 0), ORC(100, 2, 25, 4, 100, 4, 0), GOBLIN(30, 8, 5, 2, 70, 7, 0),
+		NAZGUL(200, 1, 50, 0, 500, 2, 0);
 
 		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
 
-		TypesH(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
+		TypesS(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
 			HEALTH = points;
 			VISUAL_RANGE = portee;
             DAMAGE = puissance;
@@ -60,56 +61,7 @@ public interface ISoldat {
 			return DEFENCE;
 		}
 		
-		public static TypesH getTypeHAlea() {
-			return values()[(int) (Math.random() * values().length)];
-		}
-	}
-
-	public static enum TypesM {
-		TROLL(170, 1, 30, 0, 250, 3, 0), ORC(100, 2, 25, 4, 100, 4, 0), GOBLIN(30, 8, 5, 2, 70, 7, 0),
-		NAZGUL(200, 1, 50, 0, 500, 2, 0);
-
-		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
-
-		TypesM(int points, int portee, int puissance, int tir, int prix, int movement, int defence) {
-			HEALTH = points;
-			VISUAL_RANGE = portee;
-			DAMAGE = puissance;
-			LONG_RANGE = tir;
-			PRICE = prix;
-			MOVEMENT = movement;
-			DEFENCE = defence;
-		}
-
-		public int getHealth() {
-			return HEALTH;
-		}
-
-		public int getVisualRange() {
-			return VISUAL_RANGE;
-		}
-
-		public int getDamage() {
-			return DAMAGE;
-		}
-
-		public int getLongRange() {
-			return LONG_RANGE;
-		}
-		
-		public int getPrice() {
-			return PRICE;
-		}
-		
-		public int getMovement() {
-			return MOVEMENT;
-		}
-		
-		public int getDefence() {
-			return DEFENCE;
-		}
-
-		public static TypesM getTypeMAlea() {
+		public static TypesS getTypeSAlea() {
 			return values()[(int) (Math.random() * values().length)];
 		}
 	}

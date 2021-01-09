@@ -5,19 +5,24 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
 import wargame.Element.TypeTerrain;
+import wargame.ISoldat.TypesS;
 
 public class Carte implements ICarte
 {
-    private final Element carte[][];
-    private final Soldat unites[][];
+    private Element carte[][];
+    private Soldat unites[][];
     private final int VALEUR_CORRECTIVE = 4;
     
-    public int mouse_x, mouse_y;
-    
+    public int mouse_x, mouse_y;    
     
     public Carte()
     {
@@ -37,7 +42,8 @@ public class Carte implements ICarte
                 carte[i][j] = new Element();
                 
                 if (peutSpawner(carte[i][j]))
-                {                
+                {
+                    /* Monstres à gauche, héros à droite */
                     if (i < (IConfig.LARGEUR_CARTE / 2))
                         unites[i][j] = genererUniteAleatoire(i, j, false);
                     else
@@ -65,18 +71,50 @@ public class Carte implements ICarte
         if (spawnChanceUnTiers())
         {
             if (heros)
-            {
-                return new Soldat(
-                    true, new Random().nextInt(ISoldat.NUM_HEROES), x, y);
-            }
+                return new Soldat(true, getRandomHeros(), x, y);
             else
-            {
-                return new Soldat(
-                    false, new Random().nextInt(ISoldat.NUM_MONSTERS), x, y);
-            }
+                return new Soldat(false, getRandomMonstre(), x, y);
         }
         
         return null;
+    }
+    
+    /* Chances de spawn
+        Human : 20%
+        Elf : 20%
+        Dwarf : 30%
+        Hobbit : 30% */
+    private TypesS getRandomHeros()
+    {
+        int pourcentage = new Random().nextInt(100);
+        
+        if (pourcentage >= 0 && pourcentage < 20)
+            return TypesS.HUMAN;
+        else if  (pourcentage >= 20 && pourcentage < 40)
+            return TypesS.ELF;
+        else if  (pourcentage >= 40 && pourcentage < 70)
+            return TypesS.DWARF;
+        else
+            return TypesS.HOBBIT;
+    }
+    
+    /* Chances de spawn
+        Nazgul : 10%
+        Troll : 20%
+        Orc : 30%
+        Goblin : 40% */
+    private TypesS getRandomMonstre()
+    {
+        int pourcentage = new Random().nextInt(100);
+        
+        if (pourcentage >= 0 && pourcentage < 10)
+            return TypesS.NAZGUL;
+        else if  (pourcentage >= 10 && pourcentage < 30)
+            return TypesS.TROLL;
+        else if  (pourcentage >= 30 && pourcentage < 60)
+            return TypesS.ORC;
+        else
+            return TypesS.GOBLIN;
     }
 
     @Override
@@ -165,6 +203,50 @@ public class Carte implements ICarte
     public void jouerSoldats(PanneauJeu pj)
     {
         
+    }
+    
+    public void sauvegarder()
+    {
+        ObjectOutputStream output;
+        FileOutputStream fichierSauvegarde;
+        SaveObject save;
+
+        try
+        {
+            fichierSauvegarde = new FileOutputStream("sauvegarde.ser");
+            output = new ObjectOutputStream(fichierSauvegarde);
+            
+            save = new SaveObject(carte, unites);
+            output.writeObject(save);
+            
+            output.flush();
+            output.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public void charger()
+    {
+        ObjectInputStream input;
+        FileInputStream fichierInput;
+        SaveObject save;
+
+        try
+        {
+            fichierInput = new FileInputStream("sauvegarde.ser");
+            input = new ObjectInputStream(fichierInput);
+            
+            save = (SaveObject) input.readObject();
+            carte = save.getCarte();
+            unites = save.getUnites();
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 	@Override
