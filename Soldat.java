@@ -10,7 +10,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	
 	private int health, visualRange, damage, longRange, price, movement, defence;
 	private boolean isHero;
-        private TypesS soldierType;
+    private TypesS soldierType;
 	
 	public static int NB_MONSTRES= 0;
 	public static int NB_HEROS= 0;

@@ -187,7 +187,7 @@ public class Carte implements ICarte
     }
 
     @Override
-    public boolean deplacerSoldat(Position pos, Soldat soldat)
+    public boolean deplacerSoldat(Position pos, Soldat soldat) throws WargameException
     {
     	Element terrain= carte[pos.getX()][pos.getY()];
     	if (soldat.getPosition().equals(pos) 
@@ -195,7 +195,7 @@ public class Carte implements ICarte
     			|| unites[pos.getX()][pos.getY()]!=null
     			|| terrain.getTypeTerrain()==Element.TypeTerrain.MONTAGNE
     			|| terrain.getTypeTerrain()==Element.TypeTerrain.LAC) {
-    		return false;
+    		throw new WargameException("Vous ne pouvez pas vous déplacer ici");
     	} else {
 	        unites[pos.getX()][pos.getY()] =
 	            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];

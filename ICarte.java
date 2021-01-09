@@ -9,7 +9,7 @@ public interface ICarte
     Position trouverPositionVide(Position pos);
     Soldat trouverHeros();
     Soldat trouverHeros(Position pos);
-    boolean deplacerSoldat(Position pos, Soldat soldat);
+    boolean deplacerSoldat(Position pos, Soldat soldat) throws WargameException;
     void mort(Soldat perso);
     boolean actionHeros(Position pos, Position pos2);
     void jouerSoldats(PanneauJeu pj);

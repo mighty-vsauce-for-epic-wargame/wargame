@@ -135,7 +135,12 @@ public class Jeu {
 						if (other!=null && !other.getisHero()) {
 							map.carte.combat(unit,other);
 						} else {
-							map.carte.deplacerSoldat(pos, unit);
+							try {
+								map.carte.deplacerSoldat(pos, unit);
+							} catch (WargameException e1) {
+								// TODO Auto-generated catch block
+								WargameException.montrerMessageBoxNonFatal(e1.getMessage());
+							}
 						}
 					}
 					map.carte.mouse_x= e.getX();
