@@ -113,16 +113,21 @@ public class Soldat extends Position implements ISoldat{
 		int diffY = Math.abs(this.posSoldat.getY() - p.getY());
 		
 		//it's a neighbor
-		if(Math.abs(diffX) + Math.abs(diffY) <= 2) {
+		if(diffX + diffY <= 2) {
 			return 1;
 		}
 		
 		//we look at the diagonals
 		if(xPair && (diffX == 2 * diffY || diffX == 2 * diffY + 1)) {
-			return Math.abs(diffX);
+			return diffX;
 		}else if(!xPair && (diffX == 2 * diffY || diffX == 2 * diffY - 1)) {
-			return Math.abs(diffX);
+			return diffX;
 		}
+		
+		if(diffX == 1) {
+			return diffY + 1;
+		}
+		
 		return -1;
 	}
 	
