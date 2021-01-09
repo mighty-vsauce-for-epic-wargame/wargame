@@ -35,6 +35,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 		if (command.equals("load")) {
 			try {
 				carte.charger();
+				repaint();
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
