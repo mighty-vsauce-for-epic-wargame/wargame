@@ -86,7 +86,7 @@ public interface ISoldat {
 	 * 
 	 * @param soldier attacked soldier
 	 * @param attackType 1 for melee 2 for long range
-	 * @return 0 if attack executed, 0 if attack impossible
+	 * @return 0 if attack executed, -1 if attack impossible
 	 */
 	int combat(Soldat soldier, int attackType);
 	

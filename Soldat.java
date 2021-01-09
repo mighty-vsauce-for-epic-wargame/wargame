@@ -96,8 +96,12 @@ public class Soldat extends Position implements ISoldat{
 	
 	//a changer
 	public int distance(Position p) {
+		
+		
 		return 0;
 	}
+	
+	
 	
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {
@@ -125,7 +129,7 @@ public class Soldat extends Position implements ISoldat{
 	
 	private void setSprite() throws IOException
     {
-		if (getisHero()) {
+		//if (getisHero()) {
 			switch (soldierType)
 	        {
 	            case HUMAN:
@@ -149,9 +153,9 @@ public class Soldat extends Position implements ISoldat{
 	            break;
 	            
 	            
-	        }
-		} else {
-			switch (soldierType) {
+	        //}
+		//} else {
+			//switch (soldierType) {
 				case TROLL:
 	                sprite = ImageIO.read(
 	                        getClass().getResource(ISoldat.SPRITE_TROLL));
@@ -172,6 +176,6 @@ public class Soldat extends Position implements ISoldat{
 	                        getClass().getResource(ISoldat.SPRITE_NAZGUL));
 	            break;
 			}
-		}
+		//}
     }
 }
