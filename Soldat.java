@@ -130,7 +130,7 @@ public class Soldat extends Position implements ISoldat{
 	
 	private void setSprite() throws IOException
     {
-		//if (getisHero()) {
+		if (getisHero()) {
 			switch (soldierType)
 	        {
 	            case HUMAN:
@@ -154,9 +154,9 @@ public class Soldat extends Position implements ISoldat{
 	            break;
 	            
 	            
-	        //}
-		//} else {
-			//switch (soldierType) {
+	        }
+		} else {
+			switch (soldierType) {
 				case TROLL:
 	                sprite = ImageIO.read(
 	                        getClass().getResource(ISoldat.SPRITE_TROLL));
@@ -177,6 +177,6 @@ public class Soldat extends Position implements ISoldat{
 	                        getClass().getResource(ISoldat.SPRITE_NAZGUL));
 	            break;
 			}
-		//}
+		}
     }
 }
