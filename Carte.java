@@ -231,7 +231,7 @@ public class Carte implements ICarte
         
     }
     
-    public void sauvegarder() throws IOException, WargameException
+    public void sauvegarder() throws WargameException
     {
         ObjectOutputStream output;
         FileOutputStream fichierSauvegarde;
@@ -250,14 +250,13 @@ public class Carte implements ICarte
         }
         catch (IOException e)
         {
+        	e.printStackTrace();
             throw new WargameException(
                     "Le jeu n'a pas pu être sauvegardé.");
         }
     }
     
     public void charger() throws
-            IOException,
-            ClassNotFoundException,
             WargameException
     {
         ObjectInputStream input;
@@ -272,6 +271,7 @@ public class Carte implements ICarte
             save = (SaveObject) input.readObject();
             carte = save.getCarte();
             unites = save.getUnites();
+            input.close();
         }
         catch (IOException | ClassNotFoundException e)
         {

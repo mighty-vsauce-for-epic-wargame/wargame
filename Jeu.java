@@ -18,7 +18,7 @@ public class Jeu {
 	public static void main(String[] args) {		
 		
 		// create the JFrame
-		JFrame frame= new MyFrame("Mighty Loot for Epic Wargame");
+		JFrame frame= new JFrame("Mighty Loot for Epic Wargame");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// adding the top bar
@@ -38,7 +38,9 @@ public class Jeu {
 		JButton b_save= new JButton("Sauvegarder");
 		JButton b_load= new JButton("Charger");
 		b_save.setPreferredSize(new Dimension(128,32));
+		b_save.setActionCommand("save");
 		b_load.setPreferredSize(new Dimension(100,32));
+		b_load.setActionCommand("load");
 		commands.add(b_save,BorderLayout.CENTER);
 		commands.add(b_load,BorderLayout.CENTER);
 		
@@ -64,6 +66,10 @@ public class Jeu {
 				( 2 + IConfig.HAUTEUR_CARTE * 2 ) * r + 1));
 		frame.getContentPane().add(map);
 		
+		// events of top commands
+		b_load.addActionListener(map);
+		b_save.addActionListener(map);
+		
 		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
 			
@@ -87,12 +93,10 @@ public class Jeu {
 			public void mousePressed(MouseEvent e) {
 				int coord[]= Carte.posToHex(e.getX(),e.getY());
 				if (coord!=null) {
-					System.out.println("Pressed at "+coord[X]+","+coord[Y]);
 					unit= map.carte.getUnite(new Position(coord[X],coord[Y]));
 					if (unit!=null)
 						if (!unit.getisHero())
 							unit= null;
-					System.out.println(unit);
 				}
 			}
 
@@ -103,7 +107,6 @@ public class Jeu {
 				Soldat other;
 				if (coord!=null) {
 					pos= new Position(coord[X],coord[Y]);
-					System.out.println("Released at "+pos.getX()+","+pos.getY());
 					if (unit!=null) {
 						other= map.carte.getUnite(pos);
 						if (other!=null && !other.getisHero()) {
