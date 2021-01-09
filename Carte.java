@@ -63,6 +63,72 @@ public class Carte implements ICarte
         }
     }
     
+    /* Comportement aléatoire */
+    public void jouerTourIA() throws WargameException
+    {
+        int i, j;
+        boolean aAttaque = false;
+        Position pos;
+        ArrayList<Soldat> monstres = new ArrayList<>();
+        
+        for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
+        {
+            for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
+            {
+                if (!unites[i][j].getisHero())
+                    monstres.add(unites[i][j]);
+            } 
+        }
+        
+        for (Soldat monstre : monstres)
+        {
+            /* Temporisation visuelle */
+            try
+            {
+                Thread.sleep(750);
+            }
+            catch (InterruptedException e)
+            {
+                throw new WargameException("Erreur lors du tour de l'IA, arrêt du programme");
+            }
+            
+            /* On essaye d'attaquer */
+            pos = trouverHeros(monstre.getPosition(), monstre.getVisualRange());
+            
+            /* Si on peut, on attaque */
+            if (pos != null)
+            {
+                combat(monstre, unites[pos.getX()][pos.getY()]);
+                aAttaque = true;
+            }
+            
+            /* Si on a pas attaqué, on essaye de déplacer */
+            if (!aAttaque)
+            {
+                pos = trouverPositionVide(
+                        monstre.getPosition(), monstre.getMovement());
+                
+                /* Si elle peut se déplacer, on déplace */
+                if (pos != null)
+                {
+                    try
+                    {
+                        deplacerSoldat(pos, monstre);
+                    }
+                    catch (WargameException e)
+                    {
+                        WargameException.
+                                montrerMessageBoxNonFatal(e.getMessage());
+                    }
+                }
+            }
+            
+            aAttaque = false;
+            
+            //monstre.setPlayed(false);
+        }
+    }
+    
     private boolean peutSpawner(Element elem)
     {
         TypeTerrain typeTerrain = elem.getTypeTerrain();
@@ -139,7 +205,7 @@ public class Carte implements ICarte
     }
 
     @Override
-    public Position trouverPositionVide()
+    public Position trouverPositionVide(Position pos, int distance)
     {
         int i, j;
         ArrayList<Position> positions = new ArrayList<>();
@@ -148,41 +214,45 @@ public class Carte implements ICarte
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                if (unites[i][j] == null)
+                if (unites[i][j] == null &&
+                    carte[i][j].getTypeTerrain() != TypeTerrain.LAC &&
+                    pos.distance(new Position(i, j)) <= distance)
+                {
                     positions.add(new Position(i, j));
+                }
             }
         }
         
-        return positions.get(new Random().nextInt(positions.size()));
-    }
-
-    @Override
-    public Position trouverPositionVide(Position pos)
-    {
+        if (!positions.isEmpty())
+            return positions.get(new Random().nextInt(positions.size()));
+        
+        /* Ceci veut dire qu'il n'y a pas de position valide */
         return null;
     }
 
     @Override
-    public Soldat trouverHeros()
+    public Position trouverHeros(Position pos, int range)
     {
         int i, j;
-        ArrayList<Soldat> heroes = new ArrayList<>();
+        ArrayList<Position> heros = new ArrayList<>();
         
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                if (unites[i][j].getisHero())
-                    heroes.add(unites[i][j]);
+                if (unites[i][j] != null &&
+                    unites[i][j].getisHero() &&
+                    pos.distance(new Position(i, j)) <= range)
+                {
+                    heros.add(new Position(i, j));
+                }
             }
         }
         
-        return heroes.get(new Random().nextInt(heroes.size()));
-    }
-
-    @Override
-    public Soldat trouverHeros(Position pos)
-    {
+        if (!heros.isEmpty())
+            return heros.get(new Random().nextInt(heros.size()));
+        
+        /* Ceci veut dire qu'il n'y a pas de position valide */
         return null;
     }
 

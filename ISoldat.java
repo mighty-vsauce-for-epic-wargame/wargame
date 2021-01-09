@@ -78,13 +78,6 @@ public interface ISoldat {
 	int getHealth();
 	
 	void setHealth(int l);
-	
-	/**calculates the distance between soldier position and argument position
-	 * 
-	 * @param p position
-	 * @return distance
-	 */
-	int distance(Position p);
 
 	/*a faire*/
 	int getTour();
