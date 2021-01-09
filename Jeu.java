@@ -79,11 +79,17 @@ public class Jeu {
 			public void mouseReleased(MouseEvent e) {
 				int coord[]= Carte.posToHex(e.getX(),e.getY());
 				Position pos;
+				Soldat other;
 				if (coord!=null) {
 					pos= new Position(coord[X],coord[Y]);
 					System.out.println("Released at "+pos.getX()+","+pos.getY());
 					if (unit!=null) {
-						map.carte.deplacerSoldat(pos, unit);
+						other= map.carte.getUnite(pos);
+						if (other!=null && !other.getisHero()) {
+							map.carte.combat(unit,other);
+						} else {
+							map.carte.deplacerSoldat(pos, unit);
+						}
 					}
 					map.carte.mouse_x= e.getX();
 				    map.carte.mouse_y= e.getY();
