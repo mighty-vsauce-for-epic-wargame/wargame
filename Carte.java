@@ -104,74 +104,7 @@ public class Carte implements ICarte
             }
         }
     }
-    
-    /* Comportement aléatoire */
-    public void jouerTourIA() throws WargameException
-    {
-        int i, j;
-        boolean aAttaque = false;
-        Position pos;
-        ArrayList<Soldat> monstres = new ArrayList<Soldat>();
-        
-        for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
-        {
-            for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
-            {
-                if (unites[i][j]!=null)
-                	if (!unites[i][j].getisHero())
-                		monstres.add(unites[i][j]);
-            } 
-        }
-        
-        for (Soldat monstre : monstres)
-        {
-            /* Temporisation visuelle */
-            try
-            {
-                Thread.sleep(750);
-            }
-            catch (InterruptedException e)
-            {
-                throw new WargameException("Erreur lors du tour de l'IA, arrêt du programme");
-            }
-            
-            /* On essaye d'attaquer */
-            pos = trouverHeros(monstre.getPosition(), monstre.getVisualRange());
-            
-            /* Si on peut, on attaque */
-            if (pos != null)
-            {
-                combat(monstre, unites[pos.getX()][pos.getY()]);
-                aAttaque = true;
-            }
-            
-            /* Si on a pas attaqué, on essaye de déplacer */
-            if (!aAttaque)
-            {
-                pos = trouverPositionVide(
-                        monstre.getPosition(), monstre.getMovement());
-                
-                /* Si elle peut se déplacer, on déplace */
-                if (pos != null)
-                {
-                    try
-                    {
-                        deplacerSoldat(pos, monstre);
-                    }
-                    catch (WargameException e)
-                    {
-                        WargameException.
-                                montrerMessageBoxNonFatal(e.getMessage());
-                    }
-                }
-            }
-            
-            aAttaque = false;
-            
-            //monstre.setPlayed(false);
-        }
-    }
-    
+
     private boolean peutSpawner(Element elem)
     {
         TypeTerrain typeTerrain = elem.getTypeTerrain();
@@ -196,6 +129,10 @@ public class Carte implements ICarte
         }
         
         return null;
+    }
+    
+    public Soldat[][] getUnites() {
+    	return unites;
     }
     
     /* Chances de spawn
@@ -335,7 +272,7 @@ public class Carte implements ICarte
 
     public void combat(Soldat s1, Soldat s2) throws WargameException{
     	if(s1.getPlayed()) {
-    		throw new WargameException("Ce soldat a depense son tour");
+    		throw new WargameException("Ce soldat a déjà joué son tour");
     	}
     	if(s1.getPosition().distance(s2.getPosition()) == 1) {
     		//melee attack

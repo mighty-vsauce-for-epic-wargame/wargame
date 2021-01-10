@@ -180,17 +180,7 @@ public class Jeu {
 		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
-		
-		//test area
-		
-		Soldat milan = new Soldat(true, ISoldat.TypesS.HUMAN, 1, 1);
-		Soldat roman = new Soldat(true, ISoldat.TypesS.HUMAN, 9, 5);
-		
-		
-		milan.distance(roman);
-		
-		
-		//end of test area
+
 	}
 	
 	public static void update_info_string() {
