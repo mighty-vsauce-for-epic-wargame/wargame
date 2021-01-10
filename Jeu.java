@@ -25,7 +25,7 @@ public class Jeu {
 		// creating a menu
 		JMenuBar menuBar;
 		JMenu m_file,m_jeu;
-		JMenuItem mi_save,mi_load,mi_quit,mi_end;
+		JMenuItem mi_save,mi_load,mi_quit,mi_end,mi_restart;
 		menuBar= new JMenuBar();
 		m_file= new JMenu("Fichier");
 		m_file.setMnemonic(KeyEvent.VK_F);
@@ -39,12 +39,16 @@ public class Jeu {
 		mi_load.setActionCommand("load");
 		mi_quit= new JMenuItem("Quitter",KeyEvent.VK_Q);
 		mi_quit.setActionCommand("quit");
+		mi_restart= new JMenuItem("Nouvelle partie",KeyEvent.VK_N);
+		mi_restart.setActionCommand("newgame");
 		m_file.add(mi_save);
 		m_file.add(mi_load);
 		m_file.addSeparator();
 		m_file.add(mi_quit);
 		mi_end= new JMenuItem("Fin du tour",KeyEvent.VK_T);
 		mi_end.setActionCommand("end_of_turn");
+		m_jeu.add(mi_restart);
+		m_jeu.addSeparator();
 		m_jeu.add(mi_end);
 		frame.setJMenuBar(menuBar);
 		
@@ -113,6 +117,7 @@ public class Jeu {
 		mi_load.addActionListener(map);
 		mi_quit.addActionListener(map);
 		mi_end.addActionListener(map);
+		mi_restart.addActionListener(map);
 		
 		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
