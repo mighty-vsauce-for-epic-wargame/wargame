@@ -112,7 +112,12 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	public void setPlayed(boolean b) {
 		this.played = b;
 	}
-
+	
+	@Override
+	public void setDefence(int d) {
+		defence = d;
+	}
+	
 	@Override
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {

@@ -203,11 +203,18 @@ public interface ISoldat {
 	int getMovement();
 	
 	/**
-	 * gives the soldiers defence (damage absorption)
+	 * gives the soldier's defence (damage absorption)
 	 * 
 	 * @return int defence
 	 */
 	int getDefence();
+	
+	/**
+	 * sets a new value for soldier's defence
+	 * 
+	 * @param d new defence value
+	 */
+	void setDefence(int d);
 	
 	/**
 	 * says whether a troop has played or not
