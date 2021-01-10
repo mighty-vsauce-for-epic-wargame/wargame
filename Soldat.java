@@ -51,8 +51,16 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		return damage;
 	}
 	
+	public void setDamage(int d) {
+		this.damage = d;
+	}
+	
 	public int getLongRange() {
 		return longRange;
+	}
+	
+	public void setLongRange(int lr) {
+		this.longRange = lr;
 	}
 	
 	public void setHealth(int l) {

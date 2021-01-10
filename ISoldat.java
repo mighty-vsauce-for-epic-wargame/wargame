@@ -20,7 +20,7 @@ public interface ISoldat {
 		HUMAN(110, 2, 20, 8, 100, 4, 0, false), DWARF(50, 2, 10, 0, 40, 3, 0, false), ELF(90, 4, 12, 15, 180, 4, 0, false), 
 		HOBBIT(30, 5, 5, 0, 70, 7, 0, false), TROLL(170, 2, 30, 0, 250, 3, 0, false), 
 		ORC(100, 3, 25, 10, 100, 4, 0, false), GOBLIN(30, 5, 5, 0, 70, 7, 0, false),
-		NAZGUL(200, 1, 50, 0, 500, 2, 0, false);
+		NAZGUL(50, 1, 60, 0, 500, 2, 0, false);
 
 		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
 		private final boolean PLAYED;

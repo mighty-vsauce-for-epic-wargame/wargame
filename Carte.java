@@ -274,21 +274,31 @@ public class Carte implements ICarte
     	if(s1.getPlayed()) {
     		throw new WargameException("Ce soldat a déjà joué son tour");
     	}
-    	if(s1.getPosition().distance(s2.getPosition()) == 1) {
+    	if(s1.getPosition().distance(s2.getPosition()) == 1) { //Element.getTypeTerrain().getDegatModif()
     		//melee attack
+    		s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
+    		s2.setDamage(s2.getDamage() - carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
     		s1.combat(s2,1);
         	s2.combat(s1,1);
         	s1.setPlayed(true);
+        	s1.setDamage(s1.getDamage() - carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
+        	s2.setDamage(s2.getDamage() - carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
     	}else if(!(s1.getPosition().distance(s2.getPosition()) <= s1.getVisualRange())) {
     		throw new WargameException("Ennemi trop loin");
     	}else if(s1.getLongRange() == 0){
     		throw new WargameException("Cette troupe ne peut pas attaquer de loin");
     	}else {
     		//long range attack
+    		s1.setLongRange(s1.getLongRange() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
     		s1.combat(s2,2);
+    		s1.setLongRange(s1.getLongRange() - carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
     		s1.setPlayed(true);
     		if(s2.getPosition().distance(s1.getPosition()) <= s2.getVisualRange() && s2.getLongRange() > 0) {
+        		s2.setLongRange(s2.getLongRange()
+        				+ carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
     			s2.combat(s1,2);
+    			s2.setLongRange(s2.getLongRange()
+    					- carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
     		}
     	}
     	if (s1.getHealth()<=0)
