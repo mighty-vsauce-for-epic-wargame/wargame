@@ -80,6 +80,7 @@ public class Carte implements ICarte
     }
     
     /* Applique le brouillard de base sur la carte */
+    
     public void appliquerBrouillard()
     {
         int i, j;

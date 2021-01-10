@@ -67,9 +67,6 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		health = l;
 	}
 	
-	public int getTour() {
-		return 0;
-	}
 
 	public int getVisualRange() {
 		return visualRange;
@@ -77,11 +74,6 @@ public class Soldat extends Position implements ISoldat,Serializable{
 
 	public int getPrice() {
 		return price;
-	}
-	
-	/*a faire*/
-	public void joueTour(int tour) {
-		
 	}
 	
 	public boolean getisHero() {

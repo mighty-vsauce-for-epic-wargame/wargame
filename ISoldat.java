@@ -79,15 +79,17 @@ public interface ISoldat {
 	
 	void setHealth(int l);
 
-	/*a faire*/
-	int getTour();
-
+	/**gets the visual range of a troop
+	 * 
+	 * @return visual range
+	 */
 	int getVisualRange();
 	
+	/**gets the price of a troop
+	 * 
+	 * @return visual range
+	 */
 	int getPrice();
-	
-	/*a faire*/
-	void joueTour(int tour);
 
 	/**this function executes the attack of the character on soldat
 	 * 
