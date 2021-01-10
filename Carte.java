@@ -111,14 +111,15 @@ public class Carte implements ICarte
         int i, j;
         boolean aAttaque = false;
         Position pos;
-        ArrayList<Soldat> monstres = new ArrayList<>();
+        ArrayList<Soldat> monstres = new ArrayList<Soldat>();
         
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                if (!unites[i][j].getisHero())
-                    monstres.add(unites[i][j]);
+                if (unites[i][j]!=null)
+                	if (!unites[i][j].getisHero())
+                		monstres.add(unites[i][j]);
             } 
         }
         
@@ -309,7 +310,7 @@ public class Carte implements ICarte
     			|| terrain.getTypeTerrain()==Element.TypeTerrain.LAC) {
     		throw new WargameException("Vous ne pouvez pas vous déplacer ici");
     	} else if(soldat.getPlayed()) {
-    		throw new WargameException("Ce soldat a depense sont tour");
+    		throw new WargameException("Ce soldat a déjà joué son tour");
     	}else {
 	        unites[pos.getX()][pos.getY()] =
 	            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];

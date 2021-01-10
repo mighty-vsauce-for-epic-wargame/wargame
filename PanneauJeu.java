@@ -42,10 +42,16 @@ public class PanneauJeu extends JPanel implements ActionListener {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
 		}
+		if (command.equals("end_of_turn")) {
+			try {
+				carte.jouerTourIA();
+			} catch (WargameException e1){
+				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
+			}
+		}
 	}
 	
 	public void afficherInfobulle(Soldat soldier) {
-		System.out.println("Soldat "+soldier.getPosition()+" "+soldier.getHealth()+" PV");
 		
 	}
 	

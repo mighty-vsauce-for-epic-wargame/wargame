@@ -48,6 +48,7 @@ public class Jeu {
 		JButton b_fin= new JButton("Fin de tour");
 		b_fin.setPreferredSize(new Dimension(128,32));
 		b_fin.setBackground(new Color(200,0,0));
+		b_fin.setActionCommand("end_of_turn");
 		game_buttons.add(b_fin,BorderLayout.CENTER);
 		
 		// adding the info string next to the button
@@ -72,9 +73,10 @@ public class Jeu {
 		hover_info.setText("Hello world!");
 		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		
-		// events of top commands
+		// events of top commands and end of turn button
 		b_load.addActionListener(map);
 		b_save.addActionListener(map);
+		b_fin.addActionListener(map);
 		
 		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
