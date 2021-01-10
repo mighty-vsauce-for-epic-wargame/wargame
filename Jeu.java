@@ -155,7 +155,7 @@ public class Jeu {
 				    	hover_info.setText(
 				    			map.carte.getElement(pos).getTypeTerrain()
 				    			+" ( +"
-				    			+map.carte.getElement(pos).getDegatModif()
+				    			+map.carte.getElement(pos).getTypeTerrain().getDegatModif()
 				    			+" DEG )");
 				    }
 				}
