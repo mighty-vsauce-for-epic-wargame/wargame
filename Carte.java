@@ -65,44 +65,28 @@ public class Carte implements ICarte
         }
     }
     
-    /* Calcule le brouillard à appliquer sur la carte */
+    public void enleverBrouillard(Soldat s) {
+    	int i, j;
+    	/* Pour chaque case, si l'unite unité peut voir la case,
+        alors on enleve le brouillard */
+    	for (i = 0; i < IConfig.LARGEUR_CARTE; i++){
+            for (j = 0; j < IConfig.HAUTEUR_CARTE; j++){
+            	if(carte[i][j].getBrouillard() && s.getPosition().distance(new Position(i, j))  <= s.getVisualRange()) {
+            		carte[i][j].setBrouillard(false);
+            	}
+            }   
+        }
+    }
+    
+    /* Applique le brouillard de base sur la carte */
     public void appliquerBrouillard()
     {
-        int i, j, k, l;
-        boolean caseVue = false;
-        
-        /* Pour chaque case, si une unité peut voir la case,
-           alors il n'y a pas de brouillard */
+        int i, j;
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                /* Par défaut on mets le brouillard */
                 carte[i][j].setBrouillard(true);
-                
-                for (k = 0; k < IConfig.LARGEUR_CARTE; k++)
-                {
-                    for (l = 0; l < IConfig.HAUTEUR_CARTE; l++)
-                    {
-                        /* Si l'unité actuelle (héros) peut voir la case,
-                           on s'arrête là */
-                        if (unites[k][l] != null &&
-                            unites[k][l].getisHero() &&
-                            unites[k][l].getPosition().distance(new Position(i, j)) <= 
-                                unites[k][l].getVisualRange())
-                        {
-                            carte[i][j].setBrouillard(false);
-                            caseVue = true;
-                            break;
-                        }
-                    }
-                    
-                    if (caseVue)
-                        break;
-                }
-                
-                if (caseVue)
-                    caseVue = false;
             }
         }
     }

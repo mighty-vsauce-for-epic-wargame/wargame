@@ -90,7 +90,7 @@ public class Element implements Serializable
         return typeTerrain;
     }
     
-    public boolean brouillard()
+    public boolean getBrouillard()
     {
         return brouillard;
     }
