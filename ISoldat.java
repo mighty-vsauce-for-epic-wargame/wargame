@@ -35,59 +35,106 @@ public interface ISoldat {
 			DEFENCE = defence;
 			PLAYED = played;
 		}
-
+		
+		/**gets the health of a troop
+		 * 
+		 * @return health of the troop
+		 */
 		public int getHealth() {
 			return HEALTH;
 		}
-
+		
+		/**gets the visual range of a troop
+		 * 
+		 * @return visual range of the troop
+		 */
 		public int getVisualRange() {
 			return VISUAL_RANGE;
 		}
-
+		
+		/**gets the damage of a troop
+		 * 
+		 * @return damage of the troop
+		 */
 		public int getDamage() {
 			return DAMAGE;
 		}
-
+		
+		/**gets the long range of a troop
+		 * 
+		 * @return long range of the troop
+		 */
 		public int getLongRange() {
 			return LONG_RANGE;
 		}
 		
+		/**gets the price of a troop
+		 * 
+		 * @return price of the troop
+		 */
 		public int getPrice() {
 			return PRICE;
 		}
 		
+		/**gets the movement distance of a troop
+		 * 
+		 * @return movement distance of the troop
+		 */
 		public int getMovement() {
 			return MOVEMENT;
 		}
 		
+		/**gets the defence of a troop
+		 * 
+		 * @return defence of the troop
+		 */
 		public int getDefence() {
 			return DEFENCE;
 		}
 		
+		/**tells whether a troop has been played or not
+		 * 
+		 * @return troop played or not
+		 */
 		public boolean getPlayed() {
 			return PLAYED;
 		}
-		
+		/**gives a random troop
+		 * 
+		 * @return random troop
+		 */
 		public static TypesS getTypeSAlea() {
 			return values()[(int) (Math.random() * values().length)];
 		}
 	}
 	
-	public Position getPosition();
+	/**gets the position of a troop
+	 * 
+	 * @return position of the troop
+	 */
+	Position getPosition();
 	
+	/**gets the health of a troop
+	 * 
+	 * @return health of the troop
+	 */
 	int getHealth();
 	
+	/**sets the health of the troop to the value of the parameter
+	 * 
+	 * @param l new health of the troop
+	 */
 	void setHealth(int l);
 
 	/**gets the visual range of a troop
 	 * 
-	 * @return visual range
+	 * @return visual range of the troop
 	 */
 	int getVisualRange();
 	
 	/**gets the price of a troop
 	 * 
-	 * @return visual range
+	 * @return price of the troop
 	 */
 	int getPrice();
 

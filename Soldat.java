@@ -99,22 +99,6 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	public void setPlayed(boolean b) {
 		this.played = b;
 	}
-	
-	public int[] hex_to_cube(Position p) {
-		int x = p.getX();
-		int z = p.getY() - (x - (x % 2)) / 2;
-		int y = - x - z;
-		int a[] = {x, z, y};
-		return a;
-	}
-	
-	public int distance(Position p) {
-		int[] a = hex_to_cube(this.posSoldat);
-		int[] b = hex_to_cube(p);
-		int rep = (Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])) / 2;
-		System.out.println("La distance entre ces deux est : " + rep);
-		return rep;
-	}
 
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {
