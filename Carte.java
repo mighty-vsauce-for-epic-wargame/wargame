@@ -188,15 +188,16 @@ public class Carte implements ICarte
     public Position trouverPositionVide(Position pos, int distance)
     {
         int i, j;
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Position> positions = new ArrayList<Position>();
         
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
-                if (unites[i][j] == null &&
-                    carte[i][j].getTypeTerrain() != TypeTerrain.LAC &&
-                    pos.distance(new Position(i, j)) <= distance)
+                if (unites[i][j] == null
+                	&& carte[i][j].getTypeTerrain() != TypeTerrain.LAC
+                    && carte[i][j].getTypeTerrain() != TypeTerrain.MONTAGNE
+                    && pos.distance(new Position(i, j)) <= distance)
                 {
                     positions.add(new Position(i, j));
                 }
@@ -248,7 +249,9 @@ public class Carte implements ICarte
     		throw new WargameException("Vous ne pouvez pas vous déplacer ici");
     	} else if(soldat.getPlayed()) {
     		throw new WargameException("Ce soldat a déjà joué son tour");
-    	}else {
+    	} else if (soldat.getPosition().distance(pos)>soldat.getMovement()) {
+    		throw new WargameException("Ce soldat ne peut pas se déplacer aussi loin");
+    	} else {
 	        unites[pos.getX()][pos.getY()] =
 	            unites[soldat.getPosition().getX()][soldat.getPosition().getY()];
 	        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
@@ -389,6 +392,12 @@ public class Carte implements ICarte
                         null);
                 //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
+                if (unites[i][j]!=null) {
+	                if (unites[i][j].getPlayed() && unites[i][j].getisHero()) {
+	                	g.setColor(new Color(64,64,64,128));
+	                	g.fillPolygon(hex);
+	                }
+                }
                 
                 /* draw the hexes */
                 g.setColor(new Color(100,150,100));
@@ -412,6 +421,24 @@ public class Carte implements ICarte
                 	/*((Graphics2D)g).setStroke(new BasicStroke(2.0f));
                 	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 	((Graphics2D)g).setStroke(new BasicStroke(1.0f));*/
+                	if (unites[i][j]!=null) {
+                		ISoldat.TypesS st= unites[i][j].getSoldierType();
+                		int max_health= st.getHealth() / 2;
+                		g.setColor(new Color(128,0,0));
+                		g.fillRect(
+                				i * IConfig.HEX_SIZE + xOffset * (i + 1),
+                				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+                                yOffset * (Math.floorMod(i, 2) + j),
+                                max_health,
+                                4);
+                		g.setColor(Color.RED);
+                		g.fillRect(
+                				i * IConfig.HEX_SIZE + xOffset * (i + 1),
+                				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+                                yOffset * (Math.floorMod(i, 2) + j),
+                                unites[i][j].getHealth(),
+                                4);
+                	}
                 }
         		
         		/* draw the troops */

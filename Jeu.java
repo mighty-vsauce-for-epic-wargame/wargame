@@ -37,12 +37,16 @@ public class Jeu {
 		// adding save and load buttons
 		JButton b_save= new JButton("Sauvegarder");
 		JButton b_load= new JButton("Charger");
+		JButton b_new= new JButton("Redémarrer");
 		b_save.setPreferredSize(new Dimension(128,32));
 		b_save.setActionCommand("save");
 		b_load.setPreferredSize(new Dimension(100,32));
 		b_load.setActionCommand("load");
+		b_new.setPreferredSize(new Dimension(128,32));
+		b_new.setActionCommand("newgame");
 		commands.add(b_save,BorderLayout.CENTER);
 		commands.add(b_load,BorderLayout.CENTER);
+		commands.add(b_new,BorderLayout.CENTER);
 		
 		// adding the end of turn button
 		JButton b_fin= new JButton("Fin de tour");
@@ -77,6 +81,7 @@ public class Jeu {
 		b_load.addActionListener(map);
 		b_save.addActionListener(map);
 		b_fin.addActionListener(map);
+		b_new.addActionListener(map);
 		
 		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
@@ -106,7 +111,15 @@ public class Jeu {
 				    			+unite.getDamage()
 				    			+" MEL / "
 				    			+unite.getLongRange()
-				    			+" RNG)");
+				    			+" RNG) "
+				    			+unite.getMovement()
+				    			+" PM");
+				    } else {
+				    	hover_info.setText(
+				    			map.carte.getElement(pos).getTypeTerrain()
+				    			+" ( +"
+				    			+map.carte.getElement(pos).getDegatModif()
+				    			+" DEF )");
 				    }
 				}
 			    map.repaint();
@@ -119,9 +132,13 @@ public class Jeu {
 				int coord[]= Carte.posToHex(e.getX(),e.getY());
 				if (coord!=null) {
 					unit= map.carte.getUnite(new Position(coord[X],coord[Y]));
-					if (unit!=null)
-						if (!unit.getisHero())
+					if (unit!=null) {
+						if (!unit.getisHero()) {
 							unit= null;
+						} else {
+							map.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+						}
+					}
 				}
 			}
 
@@ -154,6 +171,7 @@ public class Jeu {
 				    map.carte.mouse_y= e.getY();
 				    map.repaint();
 				}
+				map.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			
 			@Override
