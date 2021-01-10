@@ -43,13 +43,21 @@ public class Carte implements ICarte
         }
         
         initialiserCarte();
+        appliquerBrouillard();
+        for (Soldat s_tab[] : unites) {
+        	for (Soldat s : s_tab) {
+        		if (s!=null) {
+        			if (s.isHero())
+        				enleverBrouillard(s);
+        		}
+        	}
+        }
     }
     
     private void initialiserCarte()
     {
         int i, j;
         carte = MapGenerator.getRandomMap();
-        
         for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
         {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
@@ -245,6 +253,7 @@ public class Carte implements ICarte
 	        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
     		soldat.seDeplace(pos);
     		soldat.setPlayed(true);
+    		enleverBrouillard(soldat);
 	        return true;
     	}
     }
@@ -417,6 +426,7 @@ public class Carte implements ICarte
     }
 
 	@Override
+	/** draw the map GUI */
 	public void toutDessiner(Graphics g) {
 		int i,j;
 		int points[][];
@@ -440,23 +450,34 @@ public class Carte implements ICarte
                 ((Graphics2D) g).setClip(hex); // pour que l'image se dessine uniquement dans l'hexagone
                                 
                 /* draw the map */
-                g.drawImage(
-                        ressources.getTerrainSprite(carte[i][j].getTypeTerrain()),
-                        i * IConfig.HEX_SIZE + xOffset * i,
-                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j + 1),
-                        null);
-                //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
-                ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
-                if (unites[i][j]!=null) {
-	                if (unites[i][j].getPlayed() && unites[i][j].isHero()) {
-	                	g.setColor(new Color(64,64,64,128));
-	                	g.fillPolygon(hex);
-	                }
+                if (carte[i][j].getBrouillard()) {
+                	g.drawImage(
+                            ressources.getBrouillardSprite(),
+                            i * IConfig.HEX_SIZE + xOffset * i,
+                            j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j + 1),
+                            null);
+                } else {
+                	g.drawImage(
+                            ressources.getTerrainSprite(carte[i][j].getTypeTerrain()),
+                            i * IConfig.HEX_SIZE + xOffset * i,
+                            j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) + yOffset * (Math.floorMod(i, 2) + j + 1),
+                            null);
                 }
                 
-                /* draw the hexes */
-                g.setColor(new Color(100,150,100));
-                g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+                //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+                ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
+
+                if (!carte[i][j].getBrouillard()) {
+                	if (unites[i][j]!=null) {
+    	                if (unites[i][j].getPlayed() && unites[i][j].isHero()) {
+    	                	g.setColor(new Color(64,64,64,128));
+    	                	g.fillPolygon(hex);
+    	                }
+                    }
+                    /* draw the hexes */
+                    g.setColor(new Color(100,150,100));
+                    g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
+                }
             }
         }
 		
@@ -473,7 +494,7 @@ public class Carte implements ICarte
                 int mouse[]= posToHex(mouse_x,mouse_y);
                 Position mousePos;
                 /* draw the ranges of the selected unit if there is one */
-                if (mouse!=null) {
+                if (mouse!=null && !carte[i][j].getBrouillard()) {
 	                mousePos= new Position(mouse[0],mouse[1]);
 	                Soldat hovering= unites[mouse[0]][mouse[1]];
 	                int distance= mousePos.distance(new Position(i,j));
@@ -505,29 +526,12 @@ public class Carte implements ICarte
                 	/*((Graphics2D)g).setStroke(new BasicStroke(2.0f));
                 	g.drawPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 	((Graphics2D)g).setStroke(new BasicStroke(1.0f));*/
-                	if (unites[i][j]!=null) {
-                		ISoldat.TypesS st= unites[i][j].getSoldierType();
-                		int max_health= st.getHealth() / 2;
-                		g.setColor(new Color(128,0,0));
-                		g.fillRect(
-                				i * IConfig.HEX_SIZE + xOffset * (i + 1),
-                				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
-                                yOffset * (Math.floorMod(i, 2) + j),
-                                max_health,
-                                4);
-                		g.setColor(Color.RED);
-                		g.fillRect(
-                				i * IConfig.HEX_SIZE + xOffset * (i + 1),
-                				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
-                                yOffset * (Math.floorMod(i, 2) + j),
-                                unites[i][j].getHealth(),
-                                4);
-                	}
+                	
                 }
         		
         		/* draw the troops */
                 unit= unites[i][j];
-                if (unit!=null) {
+                if (unit!=null && !carte[i][j].getBrouillard()) {
                 	g.drawImage(
                 			ressources.getSoldatSprite(unit.getSoldierType()),
                 			i * IConfig.HEX_SIZE + xOffset * i + IConfig.HEX_SIZE*3/4,
@@ -538,9 +542,48 @@ public class Carte implements ICarte
                 }
         	}
         }
+        
+        /* draw the health bar */
+        for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+        	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+        		points = Hexagon.calculPoints(
+                        i * IConfig.HEX_SIZE + xOffset * (i + 1),
+                        j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+                                yOffset * (Math.floorMod(i, 2) + j + 1),
+                        IConfig.HEX_SIZE);
+                hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+		        if (hex.contains(mouse_x,mouse_y) && !carte[i][j].getBrouillard()) {
+		            if (unites[i][j]!=null) {
+		        		ISoldat.TypesS st= unites[i][j].getSoldierType();
+		        		int max_health= st.getHealth();
+		        		g.setColor(Color.BLACK);
+		        		g.fillRect(
+		        				i * IConfig.HEX_SIZE + xOffset * (i + 1)-1,
+		        				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+		                        yOffset * (Math.floorMod(i, 2) + j)-1,
+		                        max_health+2,
+		                        6);
+		        		g.setColor(new Color(128,0,0));
+		        		g.fillRect(
+		        				i * IConfig.HEX_SIZE + xOffset * (i + 1),
+		        				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+		                        yOffset * (Math.floorMod(i, 2) + j),
+		                        max_health,
+		                        4);
+		        		g.setColor(Color.RED);
+		        		g.fillRect(
+		        				i * IConfig.HEX_SIZE + xOffset * (i + 1),
+		        				j * (IConfig.HEX_SIZE - VALEUR_CORRECTIVE) +
+		                        yOffset * (Math.floorMod(i, 2) + j),
+		                        unites[i][j].getHealth(),
+		                        4);
+		        	}
+		        }
+        	}
+        }
     }
 	
-	
+	/** convert int coordinates into the corresponding hex coordinates */
 	public static int[] posToHex(int x, int y) {
 		int i,j;
 		int points[][];
