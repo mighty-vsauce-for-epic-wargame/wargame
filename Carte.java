@@ -1,5 +1,6 @@
 package wargame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -317,7 +318,7 @@ public class Carte implements ICarte
     		//melee attack
     		d1 = s1.getDamage();
     		d2 = s2.getDamage();
-			
+
     		if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif()){
     			s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
     		}else {
@@ -484,6 +485,31 @@ public class Carte implements ICarte
                                 yOffset * (Math.floorMod(i, 2) + j + 1),
                         IConfig.HEX_SIZE);
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
+                int mouse[]= posToHex(mouse_x,mouse_y);
+                Position mousePos;
+                if (mouse!=null) {
+	                mousePos= new Position(mouse[0],mouse[1]);
+	                Soldat hovering= unites[mouse[0]][mouse[1]];
+	                if (hovering!=null) {
+	                	if (hovering.getLongRange()!=0) {
+			                if (mousePos.distance(new Position(i,j))<=hovering.getVisualRange()) {
+			                	g.setColor(new Color(255,0,0,100));
+			                	g.fillPolygon(hex);
+			                }
+	                	} else {
+	                		if (mousePos.distance(new Position(i,j))==1) {
+			                	g.setColor(new Color(255,0,0,100));
+			                	g.fillPolygon(hex);
+	                		}
+	                	}
+		                if (mousePos.distance(new Position(i,j))<=hovering.getMovement()) {
+		                	((Graphics2D)g).setStroke(new BasicStroke(2.0f));
+		                	g.setColor(new Color(255,0,0,100));
+		                	g.drawPolygon(hex);
+		                	((Graphics2D)g).setStroke(new BasicStroke(1.0f));
+		                }
+	                }
+                }
         		if (hex.contains(mouse_x,mouse_y)) { // change to mouse coordinates
                 	g.setColor(new Color(255,255,255,50));
                 	g.fillPolygon(hex);

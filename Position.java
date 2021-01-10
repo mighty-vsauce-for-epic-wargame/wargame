@@ -52,7 +52,7 @@ public class Position implements IConfig,Serializable{
 		int[] a = hex_to_cube(this);
 		int[] b = hex_to_cube(p);
 		int rep = (Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])) / 2;
-		System.out.println("La distance entre ces deux est : " + rep);
+		//System.out.println("La distance entre ces deux est : " + rep);
 		return rep;
 	}
 
