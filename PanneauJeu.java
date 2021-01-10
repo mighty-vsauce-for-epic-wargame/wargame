@@ -32,7 +32,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
             {
                 if (unites[i][j]!=null) {
                 	unites[i][j].setPlayed(false);
-                	if (!unites[i][j].getisHero())
+                	if (!unites[i][j].isHero())
                 		monstres.add(unites[i][j]);
                 }
             } 

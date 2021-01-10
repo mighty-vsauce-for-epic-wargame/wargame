@@ -169,7 +169,7 @@ public class Jeu {
 				if (coord!=null) {
 					unit= map.carte.getUnite(new Position(coord[X],coord[Y]));
 					if (unit!=null) {
-						if (!unit.getisHero()) {
+						if (!unit.isHero()) {
 							unit= null;
 						} else {
 							map.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
@@ -187,7 +187,7 @@ public class Jeu {
 					pos= new Position(coord[X],coord[Y]);
 					if (unit!=null) {
 						other= map.carte.getUnite(pos);
-						if (other!=null && !other.getisHero()) {
+						if (other!=null && !other.isHero()) {
 							try {
 								map.carte.combat(unit,other);
 							} catch (WargameException e2) {

@@ -38,68 +38,82 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		Jeu.update_info_string();
 	}
 	
-	
+	@Override
 	public Position getPosition() {
 		return this.posSoldat;
 	}
 	
+	@Override
 	public int getHealth() {
 		return health;
 	}
 	
+	@Override
 	public int getDamage() {
 		return damage;
 	}
 	
+	@Override
 	public void setDamage(int d) {
 		this.damage = d;
 	}
 	
+	@Override
 	public int getLongRange() {
 		return longRange;
 	}
 	
+	@Override
 	public void setLongRange(int lr) {
 		this.longRange = lr;
 	}
 	
+	@Override
 	public void setHealth(int l) {
 		health = l;
 	}
 	
-
+	@Override
 	public int getVisualRange() {
 		return visualRange;
 	}
 
+	@Override
 	public int getPrice() {
 		return price;
 	}
 	
-	public boolean getisHero() {
+	@Override
+	public boolean isHero() {
 		return isHero;
 	}
 	
+	@Override
 	public TypesS getSoldierType() {
 		return soldierType;
 	}
 	
+	@Override
 	public int getMovement() {
 		return movement;
 	}
 	
+	@Override
 	public int getDefence() {
 		return defence;
 	}
 	
+	@Override
 	public boolean getPlayed() {
 		return played;
 	}
 	
+	@Override
 	public void setPlayed(boolean b) {
 		this.played = b;
 	}
 
+	@Override
 	public int combat(Soldat soldier, int attackType) {
 		if(attackType == 1) {
 			//the attack is a melee attack
@@ -115,7 +129,7 @@ public class Soldat extends Position implements ISoldat,Serializable{
 		}
 	}
 	
-
+	@Override
 	public void seDeplace(Position newPos) {
 		this.posSoldat = newPos;
 	}

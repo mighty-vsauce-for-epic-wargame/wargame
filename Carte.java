@@ -210,7 +210,7 @@ public class Carte implements ICarte
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
                 if (unites[i][j] != null &&
-                    unites[i][j].getisHero() &&
+                    unites[i][j].isHero() &&
                     pos.distance(new Position(i, j)) <= range)
                 {
                     heros.add(new Position(i, j));
@@ -252,7 +252,7 @@ public class Carte implements ICarte
     @Override
     public void mort(Soldat perso)
     {
-    	if (perso.getisHero()) {
+    	if (perso.isHero()) {
     		Soldat.NB_HEROS--;
     	} else {
     		Soldat.NB_MONSTRES--;
@@ -448,7 +448,7 @@ public class Carte implements ICarte
                 //g.fillPolygon(points[Hexagon.X], points[Hexagon.Y], 6);
                 ((Graphics2D) g).setClip(0,0,10000,10000); // pour rétablir le clip d'origine
                 if (unites[i][j]!=null) {
-	                if (unites[i][j].getPlayed() && unites[i][j].getisHero()) {
+	                if (unites[i][j].getPlayed() && unites[i][j].isHero()) {
 	                	g.setColor(new Color(64,64,64,128));
 	                	g.fillPolygon(hex);
 	                }
