@@ -17,7 +17,10 @@ public interface ISoldat {
 	String SPRITE_GOBLIN= "resources/gobelin.png";
 	String SPRITE_NAZGUL= "resources/nazgul.png";
 	
-	
+	/**
+         * Décrit les types de soldats possibles avec leurs stats
+         * respectives.
+         */
 	static enum TypesS {
 		HUMAN(110, 3, 20, 8, 100, 2, 0, false), DWARF(50, 2, 10, 0, 40, 3, 0, false), ELF(90, 4, 12, 15, 180, 2, 0, false), 
 		HOBBIT(30, 2, 5, 0, 70, 4, 0, false), TROLL(150, 2, 30, 0, 250, 1, 0, false), 

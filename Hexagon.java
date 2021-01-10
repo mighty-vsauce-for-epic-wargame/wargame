@@ -39,7 +39,7 @@ public abstract class Hexagon {
 	
 	/** calcule la longueur de la projection verticale d'un côté non orthogonal de l'hexagone
 	 * 
-	 * @param int
+	 * @param side Côté auquel appliquer le calcul.
 	 * @return double
 	 */
 	public static double calculH(int side) {
@@ -48,7 +48,7 @@ public abstract class Hexagon {
 	
 	/** calcule la longueur de la projection horizontale d'un côté non orthogonal de l'hexagone
 	 * 
-	 * @param int
+	 * @param side Côté auquel appliquer le calcul.
 	 * @return double
 	 */
 	public static double calculR(int side) {
@@ -57,7 +57,7 @@ public abstract class Hexagon {
 	
 	/** transforme un angle en degres en radians
 	 * 
-	 * @param int
+	 * @param deg Angle en degrés.
 	 * @return double
 	 */
 	public static double degToRad(int deg) {

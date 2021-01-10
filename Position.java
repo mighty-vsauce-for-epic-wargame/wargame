@@ -2,11 +2,21 @@ package wargame;
 
 import java.io.Serializable;
 
+/**
+ * Cette classe décrit une position en 2D et donne diverses fonctions
+ * pour faire des calculs avec.
+ * @author Milan Jankovic
+ */
 public class Position implements IConfig,Serializable{
 	
 	private static final long serialVersionUID = -3922521254560781030L;
 	private int x, y;
 
+        /**
+         * Renvoie une position selon une coordonnée x et y.
+         * @param x
+         * @param y 
+         */
 	Position(int x, int y) {
 		this.x = x;
 		this.y = y;

@@ -22,7 +22,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 	
 	/** fait jouer tous les monstres de manière aléatoire
 	 * 
-	 * @throws WargameException
+	 * @throws WargameException Renvoie un message si un problème survient.
 	 */
     public void jouerTourIA() throws WargameException
     {

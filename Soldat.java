@@ -2,7 +2,10 @@ package wargame;
 
 import java.io.Serializable;
 
-
+/**
+ * Classe décrivant un soldat avec ses stats.
+ * @author Milan Jankovic
+ */
 public class Soldat extends Position implements ISoldat,Serializable{
 	private static final long serialVersionUID = -4358118282828361652L;
 
@@ -15,6 +18,13 @@ public class Soldat extends Position implements ISoldat,Serializable{
 	public static int NB_MONSTRES= 0;
 	public static int NB_HEROS= 0;
 	
+        /**
+         * Crée une troupe en fonction des paramètres donnés.
+         * @param isHero Héros ou non.
+         * @param soldierType Type de l'enum TypesS.
+         * @param posX Coordonnée x.
+         * @param posY Coordonnée y.
+         */
 	public Soldat(boolean isHero, TypesS soldierType, int posX, int posY) {
 		super(posX, posY);
 		posSoldat = new Position(posX, posY);

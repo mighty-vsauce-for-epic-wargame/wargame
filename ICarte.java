@@ -73,7 +73,7 @@ public interface ICarte
     /** 
      * supprime un soldat
      * 
-     * @param Soldat soldat a supprimer
+     * @param perso Soldat a supprimer
      * 
      */
     void mort(Soldat perso);
@@ -81,8 +81,8 @@ public interface ICarte
     /** 
      * fait s'attaquer deux soldats entre eux
      * 
-     * @param Soldat premier soldat qui attaque
-     * @param Soldat soldat qui se defend puis qui a son tour attaque
+     * @param s1 Premier soldat qui attaque
+     * @param s2 Soldat qui se defend puis qui a son tour attaque
      * @throws WargameException message envoye si pb de combat
      * 
      */
@@ -112,7 +112,7 @@ public interface ICarte
 	/** 
 	 * draw the map GUI
 	 * 
-	 *  @param Graphics
+	 *  @param g Object Graphics.
 	 *  
 	 */
 	public void toutDessiner(Graphics g);

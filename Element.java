@@ -2,12 +2,20 @@ package wargame;
 
 import java.io.Serializable;
 
+/**
+ * Décrit un élément de terrain de la carte.
+ * @author Alexandre Vernet
+ */
 public class Element implements Serializable
 {
     private static final long serialVersionUID = 5704426075833872252L;
     
     private boolean brouillard;
 
+    /**
+     * Décrit un type de terrain avec des modifications appliquées aux unités
+     * s'y trouvant.
+     */
     public enum TypeTerrain
     {
         

@@ -32,7 +32,7 @@ public class Ressources
     
     /**
       * Renvoie un objet d'accès aux ressources du jeu.
-      * @throws wargame.WargameException
+      * @throws wargame.WargameException Renvoie un message si un problème survient.
       */
     public Ressources() throws WargameException
     {
