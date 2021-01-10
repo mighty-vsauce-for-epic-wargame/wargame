@@ -119,7 +119,7 @@ public class Jeu {
 				    			map.carte.getElement(pos).getTypeTerrain()
 				    			+" ( +"
 				    			+map.carte.getElement(pos).getDegatModif()
-				    			+" DEF )");
+				    			+" DEG )");
 				    }
 				}
 			    map.repaint();

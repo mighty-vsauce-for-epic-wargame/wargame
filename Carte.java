@@ -12,6 +12,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import wargame.Element.TypeTerrain;
 import wargame.ISoldat.TypesS;
 
@@ -271,6 +273,39 @@ public class Carte implements ICarte
     	}
         unites[perso.getPosition().getX()][perso.getPosition().getY()] = null;
         Jeu.update_info_string();
+        if (Soldat.NB_HEROS==0) {
+        	Object[] options = { "Quitter le jeu" };
+            int retour;
+            
+            retour = JOptionPane.showOptionDialog(
+                null,
+                "Sauron a gagné, le Gondor est perdu...",
+                "Fin du jeu",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+            
+            if (retour == JOptionPane.OK_OPTION)
+                System.exit(0);
+        } else if (Soldat.NB_MONSTRES==0) {
+        	Object[] options = { "Quitter le jeu" };
+            int retour;
+            
+            retour = JOptionPane.showOptionDialog(
+                null,
+                "Vous avez gagné ! Le Gondor est sauvé",
+                "Fin du jeu",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+            
+            if (retour == JOptionPane.OK_OPTION)
+                System.exit(0);
+        }
     }
 
     public void combat(Soldat s1, Soldat s2) throws WargameException{
