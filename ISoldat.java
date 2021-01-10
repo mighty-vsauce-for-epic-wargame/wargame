@@ -6,6 +6,8 @@ public interface ISoldat {
 	public final int HUMAN= 0, DWARF= 1, ELF= 2, HOBBIT= 3;
 	public final int TROLL= 0, ORC= 1, GOBLIN= 2, NAZGUL= 3;
 	
+	public final int REST= 2;
+	
 	String SPRITE_HUMAN= "resources/humain.png";
 	String SPRITE_DWARF= "resources/nain.png";
 	String SPRITE_ELF= "resources/elfe.png";

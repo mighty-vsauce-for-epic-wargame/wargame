@@ -133,6 +133,7 @@ public class Jeu {
 				Position pos= null;
 				Soldat unite;
 				int mousePos[]= Carte.posToHex(e.getX(),e.getY());
+				info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
 				if (mousePos!=null) {
 					pos= new Position(mousePos[X],mousePos[Y]);
 				    map.carte.mouse_x= e.getX();

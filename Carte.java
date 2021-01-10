@@ -101,6 +101,36 @@ public class Carte implements ICarte
         }
     }
 
+    /** compte le nb de héros sur la map */
+    public int compteHeros(Soldat unites[][]) {
+    	int i,j;
+    	int s= 0;
+    	for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+    		for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+    			if (unites[i][j]!=null) {
+    				if (unites[i][j].isHero())
+    					s++;
+    			}
+    		}
+    	}
+    	return s;
+    }
+    
+    /** compte le nb de monstres sur la map */
+    public int compteMonstres(Soldat unites[][]) {
+    	int i,j;
+    	int s= 0;
+    	for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+    		for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+    			if (unites[i][j]!=null) {
+    				if (!unites[i][j].isHero())
+    					s++;
+    			}
+    		}
+    	}
+    	return s;
+    }
+    
     private boolean peutSpawner(Element elem)
     {
         TypeTerrain typeTerrain = elem.getTypeTerrain();
