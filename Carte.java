@@ -354,16 +354,18 @@ public class Carte implements ICarte
      * @return void
      */
     public void combat(Soldat s1, Soldat s2) throws WargameException{
-    	int d1, d2;
+    	//int d1, d2;
     	if(s1.getPlayed()) {
     		throw new WargameException("Ce soldat a déjà joué son tour");
     	}
     	if(s1.getPosition().distance(s2.getPosition()) == 1) { //Element.getTypeTerrain().getDegatModif()
+    		
     		//melee attack
-    		d1 = s1.getDamage();
-    		d2 = s2.getDamage();
+    		
+    		//d1 = s1.getDamage();
+    		//d2 = s2.getDamage();
 
-    		if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()){
+    		/*if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()){
     			s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
     		}else {
     			s1.setDamage(1);
@@ -372,7 +374,10 @@ public class Carte implements ICarte
     			s2.setDamage(s2.getDamage() + carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		}else {
     			s2.setDamage(1);
-    		}
+    		}*/
+    		
+    		s1.setDefence(carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
+    		s2.setDefence(carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		s1.combat(s2,1);
         	s2.combat(s1,1);
         	s1.setPlayed(true);
