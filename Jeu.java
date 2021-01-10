@@ -156,7 +156,7 @@ public class Jeu {
 				    			map.carte.getElement(pos).getTypeTerrain()
 				    			+" ( +"
 				    			+map.carte.getElement(pos).getTypeTerrain().getDegatModif()
-				    			+" DEG )");
+				    			+" DEF )");
 				    }
 				}
 			    map.repaint();
