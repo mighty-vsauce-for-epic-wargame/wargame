@@ -102,7 +102,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			try {
 				carte.sauvegarder();
 				System.out.println("Saved !");
-				WargameException.montrerMessageBoxNonFatal("Partie sauvegardé");
+				WargameException.montrerMessageBoxNonFatal("Partie sauvegardée");
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}

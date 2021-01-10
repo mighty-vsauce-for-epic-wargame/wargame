@@ -253,7 +253,8 @@ public class Carte implements ICarte
 	        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
     		soldat.seDeplace(pos);
     		soldat.setPlayed(true);
-    		enleverBrouillard(soldat);
+    		if (soldat.isHero())
+    			enleverBrouillard(soldat);
 	        return true;
     	}
     }
