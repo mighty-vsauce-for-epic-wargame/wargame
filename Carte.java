@@ -614,7 +614,12 @@ public class Carte implements ICarte
         }
     }
 	
-	/** convert int coordinates into the corresponding hex coordinates */
+	/** convert int coordinates into the corresponding hex coordinates 
+	 * 
+	 * @param int
+	 * @param int
+	 * @return int[]
+	 */
 	public static int[] posToHex(int x, int y) {
 		int i,j;
 		int points[][];

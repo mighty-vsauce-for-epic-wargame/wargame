@@ -31,9 +31,10 @@ public class PanneauJeu extends JPanel implements ActionListener {
             for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
             {
                 if (unites[i][j]!=null) {
-                	unites[i][j].setPlayed(false);
-                	if (!unites[i][j].isHero())
+                	if (!unites[i][j].isHero()) {
+                    	unites[i][j].setPlayed(false);
                 		monstres.add(unites[i][j]);
+                	}
                 }
             } 
         }
@@ -94,12 +95,25 @@ public class PanneauJeu extends JPanel implements ActionListener {
         	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
         		Soldat s= carte.getUnites()[i][j];
         		if (s!=null) {
-        			s.setHealth(s.getHealth()+ISoldat.REST);
-        			if (s.getHealth()>s.getSoldierType().getHealth()) {
-        				s.setHealth(s.getSoldierType().getHealth());
+        			if (!s.getPlayed()) {
+	        			s.setHealth(s.getHealth()+ISoldat.REST);
+	        			if (s.getHealth()>s.getSoldierType().getHealth()) {
+	        				s.setHealth(s.getSoldierType().getHealth());
+	        			}
         			}
         		}
         	}
+        }
+        for (i = 0; i < IConfig.LARGEUR_CARTE; i++)
+        {
+            for (j = 0; j < IConfig.HAUTEUR_CARTE; j++)
+            {
+                if (unites[i][j]!=null) {
+                	if (unites[i][j].isHero()) {
+                    	unites[i][j].setPlayed(false);
+                	}
+                }
+            } 
         }
     }
     
