@@ -7,17 +7,23 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+/** panneau de jeu qui contient la carte et définit des fonctions utiles au gameplay 
+ * 
+ * @author Roman GUIRBAL
+ * @author Alexandre VERNET
+ *
+ */
 public class PanneauJeu extends JPanel implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	// creating the map
 	Carte carte= new Carte();
 	
-	/* Comportement aléatoire */
+	/** fait jouer tous les monstres de manière aléatoire
+	 * 
+	 * @throws WargameException
+	 */
     public void jouerTourIA() throws WargameException
     {
         int i, j;
@@ -117,6 +123,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
         }
     }
     
+    @Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		carte.toutDessiner(g);
@@ -162,10 +169,6 @@ public class PanneauJeu extends JPanel implements ActionListener {
 		if (command.equals("quit")) {
 			System.exit(0);
 		}
-	}
-	
-	public void afficherInfobulle(Soldat soldier) {
-		
 	}
 
 }

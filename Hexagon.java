@@ -1,5 +1,10 @@
 package wargame;
 
+/** classe qui contient des fonctions de calcul concernant les hexagones de la map
+ * 
+ * @author Roman GUIRBAL
+ *
+ */
 public abstract class Hexagon {
 	public static final int X= 0;
 	public static final int Y= 1;
@@ -32,14 +37,29 @@ public abstract class Hexagon {
         return points;
 	}
 	
+	/** calcule la longueur de la projection verticale d'un côté non orthogonal de l'hexagone
+	 * 
+	 * @param int
+	 * @return double
+	 */
 	public static double calculH(int side) {
 		return Math.sin(degToRad(30)) * (double)side;
 	}
 	
+	/** calcule la longueur de la projection horizontale d'un côté non orthogonal de l'hexagone
+	 * 
+	 * @param int
+	 * @return double
+	 */
 	public static double calculR(int side) {
 		return Math.cos(degToRad(30)) * (double)side;
 	}
 	
+	/** transforme un angle en degres en radians
+	 * 
+	 * @param int
+	 * @return double
+	 */
 	public static double degToRad(int deg) {
 		return deg * Math.PI / 180;
 	}

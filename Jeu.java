@@ -8,6 +8,13 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.*;
 
+/** classe principale de l'application, contient la fenêtre
+ * 
+ * @author Alexandre VERNET
+ * @author Roman GUIRBAL
+ * @author Milan JANKOVIC
+ *
+ */
 public class Jeu {
 	
 	public static JLabel info;
@@ -140,7 +147,6 @@ public class Jeu {
 				    map.carte.mouse_y= e.getY();
 				    unite= map.carte.getUnite(pos);
 				    if (unite!=null) {
-				    	map.afficherInfobulle(unite);
 				    	hover_info.setText(
 				    			unite.getSoldierType()
 				    			+" ("+unite.getHealth()
