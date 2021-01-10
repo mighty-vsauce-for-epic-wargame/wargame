@@ -354,64 +354,37 @@ public class Carte implements ICarte
      * @return void
      */
     public void combat(Soldat s1, Soldat s2) throws WargameException{
-    	//int d1, d2;
     	if(s1.getPlayed()) {
     		throw new WargameException("Ce soldat a déjà joué son tour");
     	}
-    	if(s1.getPosition().distance(s2.getPosition()) == 1) { //Element.getTypeTerrain().getDegatModif()
-    		
+    	if(s1.getPosition().distance(s2.getPosition()) == 1) {
     		//melee attack
-    		
-    		//d1 = s1.getDamage();
-    		//d2 = s2.getDamage();
-
-    		/*if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()){
-    			s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
-    		}else {
-    			s1.setDamage(1);
-    		}
-    		if(s2.getDamage() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif()) {
-    			s2.setDamage(s2.getDamage() + carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
-    		}else {
-    			s2.setDamage(1);
-    		}*/
     		
     		s1.setDefence(carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
     		s2.setDefence(carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		s1.combat(s2,1);
         	s2.combat(s1,1);
+        	s1.setDefence(0);
+        	s2.setDefence(0);
         	s1.setPlayed(true);
-        	s1.setDamage(d1);
-        	s2.setDamage(d2);
     	}else if(s1.getPosition().distance(s2.getPosition()) > s1.getVisualRange()) {
     		throw new WargameException("Ennemi trop loin");
     	}else if(s1.getLongRange() == 0){
     		throw new WargameException("Cette troupe ne peut pas attaquer de loin");
     	}else {
     		//long range attack
-    		d1 = s1.getLongRange();
-    		if(s1.getLongRange() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()) {
-    			s1.setLongRange(s1.getLongRange() + 
-    					carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
-    		}else {
-    			s1.setLongRange(1);
-    		}
+    		
+    		s1.setDefence(carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
+    		s2.setDefence(carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		s1.combat(s2,2);
-    		s1.setLongRange(d1);
     		s1.setPlayed(true);
     		
-    		System.out.println("distance = " + s2.getPosition().distance(s1.getPosition()) + 
-    				"\nVisual range of the troop = " + s1.getVisualRange());
     		if(s2.getPosition().distance(s1.getPosition()) <= s2.getVisualRange() && s2.getLongRange() > 0) {
-    			d2 = s2.getLongRange();
-        		
-    			if(s2.getLongRange() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif()) {
-    				s2.setLongRange(s2.getLongRange()
-        				+ carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
-    			}
     			s2.combat(s1,2);
-    			s2.setLongRange(d2);
     		}
+
+    		s1.setDefence(0);
+			s2.setDefence(0);
     	}
     	if (s1.getHealth()<=0)
     		mort(s1);
