@@ -6,6 +6,11 @@ import javax.imageio.ImageIO;
 import wargame.Element.TypeTerrain;
 import wargame.ISoldat.TypesS;
 
+/**
+  * Cette classe est une classe de ressources, nécessitant
+  * d'être instanciée une seule fois et donnant accès aux ressources du jeu.
+  *
+  * @author Alexandre Vernet */
 public class Ressources
 {
     private BufferedImage spriteLac;
@@ -25,6 +30,10 @@ public class Ressources
     private BufferedImage spriteGobelin;
     private BufferedImage spriteNazgul;
     
+    /**
+      * Renvoie un objet d'accès aux ressources du jeu.
+      * @throws wargame.WargameException
+      */
     public Ressources() throws WargameException
     {
         try
@@ -106,11 +115,21 @@ public class Ressources
                     getClass().getResource(ISoldat.SPRITE_NAZGUL));
     }
     
+    /**
+      * Renvoie le sprite correspondant au brouillard.
+      * @return BufferedImage L'image du brouillard.
+      */
     public BufferedImage getBrouillardSprite()
     {
         return spriteBrouillard;
     }
     
+    /**
+      * Renvoie le sprite correspondant au type de terrain passé
+      * en paramètre.
+      * @param typeTerrain Le type de terrain en question.
+      * @return BufferedImage L'image du type de terrain.
+      */
     public BufferedImage getTerrainSprite(TypeTerrain typeTerrain)
     {
         switch (typeTerrain)
@@ -131,6 +150,12 @@ public class Ressources
         }
     }
     
+    /**
+      * Renvoie le sprite correspondant au type de soldat passé
+      * en paramètre.
+      * @param typeSoldat Le type de soldat.
+      * @return BufferedImage L'image du type de soldat.
+      */
     public BufferedImage getSoldatSprite(TypesS typeSoldat)
     {
         switch (typeSoldat)
