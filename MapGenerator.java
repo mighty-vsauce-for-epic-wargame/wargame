@@ -3,8 +3,17 @@ package wargame;
 import java.util.Random;
 import wargame.Element.TypeTerrain;
 
+/**
+  * Cette classe décrit une manière procédurale de générer une carte,
+  * avec un système de biomes.
+  *
+  * @author Alexandre Vernet */
 public class MapGenerator
 {
+    /**
+     * Renvoie une carte générée aléatoirement.
+     * @return Element[][] La carte générée.
+     */
     public static Element[][] getRandomMap()
     {
         int i, j;
