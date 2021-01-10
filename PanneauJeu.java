@@ -102,8 +102,8 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			try {
 				carte.sauvegarder();
 				System.out.println("Saved !");
+				WargameException.montrerMessageBoxNonFatal("Partie sauvegardé");
 			} catch (WargameException e1) {
-				// TODO Auto-generated catch block
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
 		}
@@ -112,6 +112,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 				carte.charger();
 				repaint();
 				System.out.println("Loaded !");
+				WargameException.montrerMessageBoxNonFatal("Partie chargée");
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
