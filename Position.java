@@ -39,6 +39,11 @@ public class Position implements IConfig,Serializable{
 		return "(" + x + "," + y + ")";
 	}
 	
+	/**
+	 * intermediate method used to calculate distance between two points
+	 * @param p position to be turned into a cube
+	 * @return int[] that contains the calculation of the cube
+	 */
 	public int[] hex_to_cube(Position p) {
 		int x = p.getX();
 		int z = p.getY() - (x - (x % 2)) / 2;
@@ -47,7 +52,11 @@ public class Position implements IConfig,Serializable{
 		return a;
 	}
         
-	
+	/**
+	 * method that calculates the distance between two points
+	 * @param p position we want to see our distance from
+	 * @return int distance between the two points
+	 */
 	public int distance(Position p) {
 		int[] a = hex_to_cube(this);
 		int[] b = hex_to_cube(p);
@@ -56,9 +65,15 @@ public class Position implements IConfig,Serializable{
 		return rep;
 	}
 
+	/**
+	 * verifie si les deux points sont voisins
+	 * @param pos point auquel on compare les positions
+	 * @return boolean true si c'est des voisins, false sinon
+	 */
 	public boolean estVoisine(Position pos) {
 		return ((Math.abs(x - pos.x) <= 1) && (Math.abs(y - pos.y) <= 1));
 	}
+	
 	@Override
 	public boolean equals(Object o) {
 		Position pos= (Position) o;

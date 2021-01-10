@@ -34,6 +34,11 @@ public class Carte implements ICarte
     
     public int mouse_x, mouse_y;    
     
+    /**
+     * Constructeur qui cree la carte avec les soldats et<br>
+     * les ressources et applique le brouillard
+     * 
+     */
     public Carte()
     {
         carte  = new Element[IConfig.LARGEUR_CARTE][IConfig.HAUTEUR_CARTE];
@@ -61,6 +66,7 @@ public class Carte implements ICarte
         }
     }
     
+    
     private void initialiserCarte()
     {
         int i, j;
@@ -81,6 +87,7 @@ public class Carte implements ICarte
         }
     }
     
+    @Override
     public void enleverBrouillard(Soldat s) {
     	int i, j;
     	/* Pour chaque case, si l'unite unité peut voir la case,
@@ -95,7 +102,7 @@ public class Carte implements ICarte
     }
     
     /* Applique le brouillard de base sur la carte */
-    
+    @Override
     public void appliquerBrouillard()
     {
         int i, j;
@@ -108,7 +115,7 @@ public class Carte implements ICarte
         }
     }
 
-    /** compte le nb de héros sur la map */
+    @Override
     public int compteHeros(Soldat unites[][]) {
     	int i,j;
     	int s= 0;
@@ -122,8 +129,7 @@ public class Carte implements ICarte
     	}
     	return s;
     }
-    
-    /** compte le nb de monstres sur la map */
+    @Override
     public int compteMonstres(Soldat unites[][]) {
     	int i,j;
     	int s= 0;
@@ -164,6 +170,7 @@ public class Carte implements ICarte
         return null;
     }
     
+    @Override
     public Soldat[][] getUnites() {
     	return unites;
     }
@@ -297,11 +304,6 @@ public class Carte implements ICarte
     }
 
     @Override
-    /** supprime un soldat
-     * 
-     * @param Soldat
-     * @return void
-     */
     public void mort(Soldat perso)
     {
     	if (perso.isHero()) {
@@ -346,13 +348,7 @@ public class Carte implements ICarte
         }
     }
 
-    /** fait s'attaquer deux soldats entre eux
-     * 
-     * @param Soldat
-     * @param Soldat
-     * @throws WargameException
-     * @return void
-     */
+    @Override
     public void combat(Soldat s1, Soldat s2) throws WargameException{
     	if(s1.getPlayed()) {
     		throw new WargameException("Ce soldat a déjà joué son tour");
@@ -392,23 +388,19 @@ public class Carte implements ICarte
     		mort(s2);
     }
     
-    @Override
+    @Deprecated
     public boolean actionHeros(Position pos, Position pos2)
     {
         return false;
     }
 
-    @Override
+    @Deprecated
     public void jouerSoldats(PanneauJeu pj)
     {
         
     }
     
-    /** écrit un fichier de sauvegarde 
-     * 
-     * @throws WargameException
-     * @return void
-     */
+    @Override
     public void sauvegarder() throws WargameException
     {
         ObjectOutputStream output;
@@ -434,11 +426,7 @@ public class Carte implements ICarte
         }
     }
     
-    /** charge un fichier de sauvegarde
-     * 
-     * @throws WargameException
-     * @return void
-     */
+    @Override
     public void charger() throws
             WargameException
     {
@@ -462,13 +450,8 @@ public class Carte implements ICarte
                     "Le fichier de sauvegarde n'a pas pu être chargé.");
         }
     }
-
-	@Override
-	/** draw the map GUI
-	 * 
-	 *  @param Graphics
-	 *  @return void
-	 */
+    
+    @Override
 	public void toutDessiner(Graphics g) {
 		int i,j;
 		int points[][];
