@@ -460,7 +460,7 @@ public class Carte implements ICarte
             }
         }
 		
-		/* draw the active hex and the troops */
+		/* draw the selection and the troops */
         for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
         	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
         		
@@ -472,12 +472,16 @@ public class Carte implements ICarte
                 hex= new Polygon(points[Hexagon.X],points[Hexagon.Y],6);
                 int mouse[]= posToHex(mouse_x,mouse_y);
                 Position mousePos;
+                /* draw the ranges of the selected unit if there is one */
                 if (mouse!=null) {
 	                mousePos= new Position(mouse[0],mouse[1]);
 	                Soldat hovering= unites[mouse[0]][mouse[1]];
-	                if (hovering!=null) {
+	                int distance= mousePos.distance(new Position(i,j));
+	                if (hovering!=null
+	                		&& carte[i][j].getTypeTerrain()!=Element.TypeTerrain.MONTAGNE
+	                		&& carte[i][j].getTypeTerrain()!=Element.TypeTerrain.LAC) {
 	                	if (hovering.getLongRange()!=0) {
-			                if (mousePos.distance(new Position(i,j))<=hovering.getVisualRange()) {
+			                if (distance<=hovering.getVisualRange() && distance!=0) {
 			                	g.setColor(new Color(255,0,0,100));
 			                	g.fillPolygon(hex);
 			                }
