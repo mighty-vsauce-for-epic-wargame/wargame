@@ -129,6 +129,9 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			this.carte= new Carte();
 			repaint();
 		}
+		if (command.equals("quit")) {
+			System.exit(0);
+		}
 	}
 	
 	public void afficherInfobulle(Soldat soldier) {
