@@ -18,6 +18,13 @@ import javax.swing.JOptionPane;
 import wargame.Element.TypeTerrain;
 import wargame.ISoldat.TypesS;
 
+/** classe qui gère les fonctions sur la carte, ses elements, et toutes les unités
+ * 
+ * @author Alexandre VERNET
+ * @author Milan JANKOVIC
+ * @author Roman GUIRBAL
+ *
+ */
 public class Carte implements ICarte
 {
     private Element carte[][];
@@ -290,6 +297,11 @@ public class Carte implements ICarte
     }
 
     @Override
+    /** supprime un soldat
+     * 
+     * @param Soldat
+     * @return void
+     */
     public void mort(Soldat perso)
     {
     	if (perso.isHero()) {
@@ -334,6 +346,13 @@ public class Carte implements ICarte
         }
     }
 
+    /** fait s'attaquer deux soldats entre eux
+     * 
+     * @param Soldat
+     * @param Soldat
+     * @throws WargameException
+     * @return void
+     */
     public void combat(Soldat s1, Soldat s2) throws WargameException{
     	int d1, d2;
     	if(s1.getPlayed()) {
@@ -407,6 +426,11 @@ public class Carte implements ICarte
         
     }
     
+    /** écrit un fichier de sauvegarde 
+     * 
+     * @throws WargameException
+     * @return void
+     */
     public void sauvegarder() throws WargameException
     {
         ObjectOutputStream output;
@@ -432,6 +456,11 @@ public class Carte implements ICarte
         }
     }
     
+    /** charge un fichier de sauvegarde
+     * 
+     * @throws WargameException
+     * @return void
+     */
     public void charger() throws
             WargameException
     {
@@ -457,7 +486,11 @@ public class Carte implements ICarte
     }
 
 	@Override
-	/** draw the map GUI */
+	/** draw the map GUI
+	 * 
+	 *  @param Graphics
+	 *  @return void
+	 */
 	public void toutDessiner(Graphics g) {
 		int i,j;
 		int points[][];
