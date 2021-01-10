@@ -1,12 +1,12 @@
 package wargame;
 
-import wargame.ISoldat.TypesS;
-
 public interface ISoldat {
 	
 	public final int NUM_HEROES = 4, NUM_MONSTERS = 4;
 	public final int HUMAN= 0, DWARF= 1, ELF= 2, HOBBIT= 3;
 	public final int TROLL= 0, ORC= 1, GOBLIN= 2, NAZGUL= 3;
+	
+	public final int REST= 2;
 	
 	String SPRITE_HUMAN= "resources/humain.png";
 	String SPRITE_DWARF= "resources/nain.png";
@@ -19,10 +19,10 @@ public interface ISoldat {
 	
 	
 	static enum TypesS {
-		HUMAN(110, 2, 20, 8, 100, 4, 0, false), DWARF(50, 2, 10, 0, 40, 3, 0, false), ELF(90, 4, 12, 15, 180, 4, 0, false), 
-		HOBBIT(30, 5, 5, 0, 70, 7, 0, false), TROLL(150, 2, 30, 0, 250, 3, 0, false), 
-		ORC(100, 3, 25, 10, 100, 4, 0, false), GOBLIN(30, 5, 5, 0, 70, 7, 0, false),
-		NAZGUL(40, 1, 100, 0, 500, 2, 0, false);
+		HUMAN(110, 3, 20, 8, 100, 2, 0, false), DWARF(50, 2, 10, 0, 40, 3, 0, false), ELF(90, 4, 12, 15, 180, 2, 0, false), 
+		HOBBIT(30, 2, 5, 0, 70, 4, 0, false), TROLL(150, 2, 30, 0, 250, 1, 0, false), 
+		ORC(100, 3, 25, 10, 100, 2, 0, false), GOBLIN(30, 5, 5, 0, 70, 3, 0, false),
+		NAZGUL(40, 1, 100, 0, 500, 1, 0, false);
 
 		private final int HEALTH, VISUAL_RANGE, DAMAGE, LONG_RANGE, PRICE, MOVEMENT, DEFENCE;
 		private final boolean PLAYED;

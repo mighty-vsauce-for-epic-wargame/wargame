@@ -24,7 +24,7 @@ public class Element implements Serializable
             this.degatModif = degatModif;
         }
         
-        private int getDegatModif()
+        public int getDegatModif()
         {
             return this.degatModif;
         }
@@ -36,11 +36,6 @@ public class Element implements Serializable
     {
         this.typeTerrain = typeTerrain;
         this.brouillard = false;
-    }
-    
-    public int getDegatModif()
-    {
-        return typeTerrain.getDegatModif();
     }
     
     public TypeTerrain getTypeTerrain()

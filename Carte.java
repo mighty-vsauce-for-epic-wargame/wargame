@@ -101,6 +101,36 @@ public class Carte implements ICarte
         }
     }
 
+    /** compte le nb de héros sur la map */
+    public int compteHeros(Soldat unites[][]) {
+    	int i,j;
+    	int s= 0;
+    	for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+    		for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+    			if (unites[i][j]!=null) {
+    				if (unites[i][j].isHero())
+    					s++;
+    			}
+    		}
+    	}
+    	return s;
+    }
+    
+    /** compte le nb de monstres sur la map */
+    public int compteMonstres(Soldat unites[][]) {
+    	int i,j;
+    	int s= 0;
+    	for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+    		for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+    			if (unites[i][j]!=null) {
+    				if (!unites[i][j].isHero())
+    					s++;
+    			}
+    		}
+    	}
+    	return s;
+    }
+    
     private boolean peutSpawner(Element elem)
     {
         TypeTerrain typeTerrain = elem.getTypeTerrain();
@@ -253,7 +283,8 @@ public class Carte implements ICarte
 	        unites[soldat.getPosition().getX()][soldat.getPosition().getY()] = null;
     		soldat.seDeplace(pos);
     		soldat.setPlayed(true);
-    		enleverBrouillard(soldat);
+    		if (soldat.isHero())
+    			enleverBrouillard(soldat);
 	        return true;
     	}
     }
@@ -315,19 +346,19 @@ public class Carte implements ICarte
     		//d1 = s1.getDamage();
     		//d2 = s2.getDamage();
 
-    		/*if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif()){
-    			s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
+    		/*if(s1.getDamage() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()){
+    			s1.setDamage(s1.getDamage() + carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
     		}else {
     			s1.setDamage(1);
     		}
-    		if(s2.getDamage() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif()) {
-    			s2.setDamage(s2.getDamage() + carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
+    		if(s2.getDamage() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif()) {
+    			s2.setDamage(s2.getDamage() + carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		}else {
     			s2.setDamage(1);
     		}*/
     		
-    		s1.setDefence(carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
-    		s2.setDefence(carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
+    		s1.setDefence(carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
+    		s2.setDefence(carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     		s1.combat(s2,1);
         	s2.combat(s1,1);
         	s1.setPlayed(true);
@@ -340,9 +371,9 @@ public class Carte implements ICarte
     	}else {
     		//long range attack
     		d1 = s1.getLongRange();
-    		if(s1.getLongRange() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif()) {
+    		if(s1.getLongRange() > carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif()) {
     			s1.setLongRange(s1.getLongRange() + 
-    					carte[s1.getPosition().getX()][s1.getPosition().getY()].getDegatModif());
+    					carte[s1.getPosition().getX()][s1.getPosition().getY()].getTypeTerrain().getDegatModif());
     		}else {
     			s1.setLongRange(1);
     		}
@@ -355,9 +386,9 @@ public class Carte implements ICarte
     		if(s2.getPosition().distance(s1.getPosition()) <= s2.getVisualRange() && s2.getLongRange() > 0) {
     			d2 = s2.getLongRange();
         		
-    			if(s2.getLongRange() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif()) {
+    			if(s2.getLongRange() > carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif()) {
     				s2.setLongRange(s2.getLongRange()
-        				+ carte[s2.getPosition().getX()][s2.getPosition().getY()].getDegatModif());
+        				+ carte[s2.getPosition().getX()][s2.getPosition().getY()].getTypeTerrain().getDegatModif());
     			}
     			s2.combat(s1,2);
     			s2.setLongRange(d2);

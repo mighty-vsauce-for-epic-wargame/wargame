@@ -88,6 +88,19 @@ public class PanneauJeu extends JPanel implements ActionListener {
             //monstre.setPlayed(false);
             repaint();
         }
+        
+        // regain health
+        for (i=0;i<IConfig.LARGEUR_CARTE;i++) {
+        	for (j=0;j<IConfig.HAUTEUR_CARTE;j++) {
+        		Soldat s= carte.getUnites()[i][j];
+        		if (s!=null) {
+        			s.setHealth(s.getHealth()+ISoldat.REST);
+        			if (s.getHealth()>s.getSoldierType().getHealth()) {
+        				s.setHealth(s.getSoldierType().getHealth());
+        			}
+        		}
+        	}
+        }
     }
     
 	public void paintComponent(Graphics g) {
@@ -102,7 +115,7 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			try {
 				carte.sauvegarder();
 				System.out.println("Saved !");
-				WargameException.montrerMessageBoxNonFatal("Partie sauvegardé");
+				WargameException.montrerMessageBoxNonFatal("Partie sauvegardée");
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
@@ -112,6 +125,8 @@ public class PanneauJeu extends JPanel implements ActionListener {
 				carte.charger();
 				repaint();
 				System.out.println("Loaded !");
+				Soldat.NB_HEROS= carte.compteHeros(carte.getUnites());
+				Soldat.NB_MONSTRES= carte.compteMonstres(carte.getUnites());
 				WargameException.montrerMessageBoxNonFatal("Partie chargée");
 			} catch (WargameException e1) {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
