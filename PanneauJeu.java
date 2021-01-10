@@ -123,6 +123,12 @@ public class PanneauJeu extends JPanel implements ActionListener {
 				WargameException.montrerMessageBoxNonFatal(e1.getMessage());
 			}
 		}
+		if (command.equals("newgame")) {
+			Soldat.NB_HEROS= 0;
+			Soldat.NB_MONSTRES= 0;
+			this.carte= new Carte();
+			repaint();
+		}
 	}
 	
 	public void afficherInfobulle(Soldat soldier) {

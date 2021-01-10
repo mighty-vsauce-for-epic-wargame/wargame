@@ -18,7 +18,7 @@ public class Element implements Serializable
     	
     	LAC(0),
         FORET(+2),
-        MONTAGNE(-2),
+        MONTAGNE(0),
         PLAINE(0),
         VILLAGE(+3);
         
