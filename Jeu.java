@@ -1,6 +1,7 @@
 package wargame;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,6 +21,32 @@ public class Jeu {
 		// create the JFrame
 		JFrame frame= new JFrame("Mighty Loot for Epic Wargame");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// creating a menu
+		JMenuBar menuBar;
+		JMenu m_file,m_jeu;
+		JMenuItem mi_save,mi_load,mi_quit,mi_end;
+		menuBar= new JMenuBar();
+		m_file= new JMenu("Fichier");
+		m_file.setMnemonic(KeyEvent.VK_F);
+		m_jeu= new JMenu("Jeu");
+		m_jeu.setMnemonic(KeyEvent.VK_J);
+		menuBar.add(m_file);
+		menuBar.add(m_jeu);
+		mi_save= new JMenuItem("Sauvegarder",KeyEvent.VK_S);
+		mi_save.setActionCommand("save");
+		mi_load= new JMenuItem("Charger",KeyEvent.VK_C);
+		mi_load.setActionCommand("load");
+		mi_quit= new JMenuItem("Quitter",KeyEvent.VK_Q);
+		mi_quit.setActionCommand("quit");
+		m_file.add(mi_save);
+		m_file.add(mi_load);
+		m_file.addSeparator();
+		m_file.add(mi_quit);
+		mi_end= new JMenuItem("Fin du tour",KeyEvent.VK_T);
+		mi_end.setActionCommand("end_of_turn");
+		m_jeu.add(mi_end);
+		frame.setJMenuBar(menuBar);
 		
 		// adding the top bar
 		JPanel topbar= new JPanel();
@@ -77,11 +104,15 @@ public class Jeu {
 		hover_info.setText("Hello world!");
 		hover_info.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		
-		// events of top commands and end of turn button
+		// events of top commands and end of turn button and menu items
 		b_load.addActionListener(map);
 		b_save.addActionListener(map);
 		b_fin.addActionListener(map);
 		b_new.addActionListener(map);
+		mi_save.addActionListener(map);
+		mi_load.addActionListener(map);
+		mi_quit.addActionListener(map);
+		mi_end.addActionListener(map);
 		
 		// events of map
 		map.addMouseMotionListener(new MouseMotionListener() {
