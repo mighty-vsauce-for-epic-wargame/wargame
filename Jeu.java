@@ -146,23 +146,27 @@ public class Jeu {
 				    map.carte.mouse_x= e.getX();
 				    map.carte.mouse_y= e.getY();
 				    unite= map.carte.getUnite(pos);
-				    if (unite!=null) {
-				    	hover_info.setText(
-				    			unite.getSoldierType()
-				    			+" ("+unite.getHealth()
-				    			+" PV / "
-				    			+unite.getDamage()
-				    			+" MEL / "
-				    			+unite.getLongRange()
-				    			+" RNG) "
-				    			+unite.getMovement()
-				    			+" PM");
+				    if (!map.carte.getElement(pos).getBrouillard()) {
+					    if (unite!=null) {
+					    	hover_info.setText(
+					    			unite.getSoldierType()
+					    			+" ("+unite.getHealth()
+					    			+" PV / "
+					    			+unite.getDamage()
+					    			+" MEL / "
+					    			+unite.getLongRange()
+					    			+" RNG) "
+					    			+unite.getMovement()
+					    			+" PM");
+					    } else {
+					    	hover_info.setText(
+					    			map.carte.getElement(pos).getTypeTerrain()
+					    			+" ( +"
+					    			+map.carte.getElement(pos).getTypeTerrain().getDegatModif()
+					    			+" DEF )");
+					    }
 				    } else {
-				    	hover_info.setText(
-				    			map.carte.getElement(pos).getTypeTerrain()
-				    			+" ( +"
-				    			+map.carte.getElement(pos).getTypeTerrain().getDegatModif()
-				    			+" DEF )");
+				    	hover_info.setText("Inconnu");
 				    }
 				}
 			    map.repaint();

@@ -524,6 +524,7 @@ public class Carte implements ICarte
 	                Soldat hovering= unites[mouse[0]][mouse[1]];
 	                int distance= mousePos.distance(new Position(i,j));
 	                if (hovering!=null
+	                		&& !carte[mouse[0]][mouse[1]].getBrouillard()
 	                		&& carte[i][j].getTypeTerrain()!=Element.TypeTerrain.MONTAGNE
 	                		&& carte[i][j].getTypeTerrain()!=Element.TypeTerrain.LAC) {
 	                	if (hovering.getLongRange()!=0) {
