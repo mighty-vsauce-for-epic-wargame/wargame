@@ -59,6 +59,8 @@ public class Carte implements ICarte
         		}
         	}
         }
+        
+        
     }
     
     private void initialiserCarte()

@@ -170,5 +170,4 @@ public class PanneauJeu extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 	}
-
 }

@@ -5,7 +5,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 /** classe principale de l'application, contient la fenêtre
@@ -241,11 +248,29 @@ public class Jeu {
 		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
+		
+		//music
+		try {
+			music();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
 	
 	public static void update_info_string() {
 		info.setText(Soldat.NB_HEROS+" héros, "+Soldat.NB_MONSTRES+" monstres");
 	}
+	
+	
+	public static void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException 
+    {       
+        AudioInputStream audioInputStream= AudioSystem.getAudioInputStream(new File("src/wargame/resources/music.mp3").getAbsoluteFile());
+        Clip clip= AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
+    }
 	
 }
